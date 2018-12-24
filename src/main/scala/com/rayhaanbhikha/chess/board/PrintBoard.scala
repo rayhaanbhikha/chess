@@ -3,7 +3,7 @@ package com.rayhaanbhikha.chess.board
 object PrintBoard {
   var columns: Array[Char] = Array('a','b','c','d','e','f','g','h')
   // print board. - reads chessboard squares map.
-  def printBoard(chessBoardSquares: Map[String, ChessBoardSquare]): Unit = {
+  def apply(chessBoardSquares: Map[String, ChessBoardSquare]): Unit = {
     printTopRow()
     for(row <- columns.indices.reverse) {
       print(row+1)

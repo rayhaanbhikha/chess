@@ -14,21 +14,10 @@ object Main extends App {
   )
   val chessBoard = new ChessBoard(chessPieces)
 
-  chessBoard.initialiseChessBoard()
   chessBoard.printBoard()
 
+//  chessBoard.move("wpa2", "a3")
 
-
-
-  val selectPiece = chessPieces.find(chessPiece => chessPiece.name == "wpa2").get
-
-//  selectPiece.movePieceTo("a3")
-
-  selectPiece.currentPosition = "a3"
-  chessBoard.printBoard()
-
-
-
-
+//  chessBoard.printBoard()
 
 }
