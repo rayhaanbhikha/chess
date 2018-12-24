@@ -1,9 +1,8 @@
-package com.rayhaanbhikha.chess.chesspieces
+package com.rayhaanbhikha.chess.pieces
 
 import scala.collection.mutable.ArrayBuffer
 
-class Pawn(val color: String,
-           val initialPosition: String) extends ChessPiece {
+case class Pawn(color: String, initialPosition: String) extends ChessPiece {
 
   override val value: Int = 1
 
@@ -23,11 +22,6 @@ class Pawn(val color: String,
       )
     }
   }
-
-
-
-
-
 
 
 

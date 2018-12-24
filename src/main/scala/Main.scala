@@ -1,21 +1,34 @@
-import com.rayhaanbhikha.chess.chesspieces.Pawn
+import com.rayhaanbhikha.chess.board.ChessBoard
+import com.rayhaanbhikha.chess.pieces.{ChessPiece, Pawn}
+
+import scala.collection.mutable.ArrayBuffer
 
 object Main extends App {
-  val whitePawn = new Pawn("white","e1")
 
-  println(whitePawn.name)
-  println(whitePawn.active)
+  val pawn: Pawn = Pawn("white", "a2")
+
+  val chessPieces: ArrayBuffer[ChessPiece] = ArrayBuffer(
+    pawn,
+    pawn.copy(initialPosition = "b2"),
+    pawn.copy(initialPosition = "c2")
+  )
+  val chessBoard = new ChessBoard(chessPieces)
+
+  chessBoard.initialiseChessBoard()
+  chessBoard.printBoard()
 
 
-  whitePawn.moves.foreach(move => {
-    println(move.x, move.y)
-  })
 
-  whitePawn.currentPosition = "e2"
 
-  println(whitePawn.currentPosition)
+  val selectPiece = chessPieces.find(chessPiece => chessPiece.name == "wpa2").get
 
-  whitePawn.moves.foreach(move => {
-    println(move.x, move.y)
-  })
+//  selectPiece.movePieceTo("a3")
+
+  selectPiece.currentPosition = "a3"
+  chessBoard.printBoard()
+
+
+
+
+
 }

@@ -1,4 +1,4 @@
-package com.rayhaanbhikha.chess.chesspieces
+package com.rayhaanbhikha.chess.pieces
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -21,7 +21,6 @@ trait ChessPiece {
 
     // name = color + pieceType + initialPosition
     def name: String = s"${color.charAt(0)}${pieceType.charAt(0)}$initialPosition"
-
 //    def getAvailableMoves: Boolean
 //    def isAvailable: Boolean
 //    def makeMove: Boolean
