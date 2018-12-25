@@ -12,24 +12,25 @@ object Main extends App {
     pawn,
     pawn.copy(initialPosition = "b2"),
     pawn.copy(initialPosition = "c2"),
-    pawn.copy(initialPosition = "b3")
+    Pawn("black", initialPosition = "a3")
 
   )
   val chessBoard = new ChessBoard(chessPieces)
 
   chessBoard.printBoard()
 
-  chessBoard.select("wpa2")
 
-  chessBoard.move("wpa2", "b3")
 
+  // select chess piece
+
+  chessBoard.select("wpb2")
+  chessBoard.move("wpb2", "b4")
   chessBoard.printBoard()
 
-  chessBoard.select("wpc2")
 
-  chessBoard.move("wpc2", "b3")
+  //  chessBoard.move("wpc2", "b3")
 
-  chessBoard.printBoard()
+//  chessBoard.printBoard()
 
 
   //  Translation.convertTranslation(new Translation(1, 1), "a2")

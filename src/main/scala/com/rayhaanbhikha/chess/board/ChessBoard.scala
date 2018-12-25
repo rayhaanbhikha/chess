@@ -36,8 +36,9 @@ class ChessBoard(chessPieces: ArrayBuffer[ChessPiece]) {
         try {
             val selectedChessPiece: ChessPiece = getChessPiece(chessPieceName)
             val availableMoves: List[String] = selectedChessPiece.getAvailableMoves(chessBoardSquares)
-            println("Available moves: ")
+            println(s"\nAvailable moves: $chessPieceName")
             availableMoves.foreach(move => print(s"$move\t"))
+            println()
         } catch {
             case _: NoSuchElementException =>
                 println(s"$chessPieceName does not exist. Please try again")

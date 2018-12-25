@@ -3,8 +3,6 @@ package com.rayhaanbhikha.chess.pieces
 import com.rayhaanbhikha.chess.board.ChessBoardSquare
 import com.rayhaanbhikha.chess.services.{AvailableMove, Translation}
 
-import scala.util.control.Breaks
-
 case class Pawn(color: String, initialPosition: String) extends ChessPiece {
 
   override val value: Int = 1
@@ -43,16 +41,29 @@ case class Pawn(color: String, initialPosition: String) extends ChessPiece {
     availableMoves.foreach(availableMove => {
       val translation = availableMove.translation
       val position = availableMove.position
+      val chessBoardSquare = chessBoardSquares(position)
+
+
+
+
+
+
+
+
+
 
       // if diagonal -> check is chess board square is not empty.
-      if(translation.isDiagonal() && !chessBoardSquares(position).isEmpty) {
+      if(translation.isDiagonal() && // check diagonal
+          !chessBoardSquare.isEmpty && // check not empty
+          chessBoardSquare.chessPiece.color != color
+      ) {
         filteredMoves = position :: filteredMoves
       }
 
       // if vertical check chess board square is not empty.
-      if(translation.isVertical() && !verticalBlock && chessBoardSquares(position).isEmpty) {
+      if(translation.isVertical() && !verticalBlock && chessBoardSquare.isEmpty) {
         filteredMoves = position :: filteredMoves
-      } else if (translation.isVertical() && !chessBoardSquares(position).isEmpty) {
+      } else if (translation.isVertical() && !chessBoardSquare.isEmpty) {
         // chessboard is blocked in vertical direction and therefore cannot go further.
         verticalBlock = true
       }
