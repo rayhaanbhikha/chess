@@ -1,12 +1,12 @@
 package com.rayhaanbhikha.chess.board
 
 import com.rayhaanbhikha.chess.pieces.ChessPiece
-
 import scala.collection.mutable.ArrayBuffer
 
 class ChessBoard(chessPieces: ArrayBuffer[ChessPiece]) {
     var columns: Array[Char] = Array('a','b','c','d','e','f','g','h')
 
+    // maybe instead of rendering chessboard all the time do on the two chessboardsquares that have changed.
     def chessBoardSquares: Map[String, ChessBoardSquare] = {
         var chessBoardSquares: Map[String, ChessBoardSquare] = Map()
 
@@ -33,13 +33,18 @@ class ChessBoard(chessPieces: ArrayBuffer[ChessPiece]) {
         chessBoardSquare.chessPiece_=(chessPiece)
     }
 
+    def select(chessPieceName: String): Unit = {
+        try {
+        val selectedChessPiece: ChessPiece = chessPieces.find(chessPiece => chessPiece.name == chessPieceName).get
+        val availableMoves: List[String] = selectedChessPiece.getAvailableMoves(chessBoardSquares)
+        println("Available moves: ")
+        availableMoves.foreach(move => print(s"$move\t"))
 
-
-//    def move(chessPieceName: String, newPos: String): Unit = {
-//        val selectedChessPiece: ChessPiece = chessPieces.find(chessPiece => chessPiece.name == chessPieceName).get
-//        // do some checks.
-//        selectedChessPiece.currentPosition = newPos
-//    }
+        } catch {
+            case _: NoSuchElementException =>
+                println(s"$chessPieceName does not exist. Please try again")
+        }
+    }
 
 
     def printBoard(): Unit = PrintBoard(chessBoardSquares)

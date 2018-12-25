@@ -1,5 +1,8 @@
 package com.rayhaanbhikha.chess.pieces
 
+import com.rayhaanbhikha.chess.board.{ChessBoard, ChessBoardSquare}
+import com.rayhaanbhikha.chess.services.Translation
+
 import scala.collection.mutable.ArrayBuffer
 
 trait ChessPiece {
@@ -10,7 +13,7 @@ trait ChessPiece {
 
     var currentPosition: String = initialPosition
 
-    def moves: ArrayBuffer[Translation]
+    def possibleMoves: List[Translation]
 
     def active: Boolean = {
       if(currentPosition.equals(initialPosition))
@@ -21,9 +24,6 @@ trait ChessPiece {
 
     // name = color + pieceType + initialPosition
     def name: String = s"${color.charAt(0)}${pieceType.charAt(0)}$initialPosition"
-//    def getAvailableMoves: Boolean
-//    def isAvailable: Boolean
-//    def makeMove: Boolean
-//    def incrementGamePoint(): Unit
 
+    def getAvailableMoves(chessBoardSquares: Map[String, ChessBoardSquare]): List[String]
 }
