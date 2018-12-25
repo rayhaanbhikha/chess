@@ -19,9 +19,20 @@ object Main extends App {
 
   chessBoard.printBoard()
 
-  chessBoard.select("wpb2")
+  chessBoard.select("wpa2")
 
-//  Translation.convertTranslation(new Translation(1, 1), "a2")
+  chessBoard.move("wpa2", "b3")
+
+  chessBoard.printBoard()
+
+  chessBoard.select("wpc2")
+
+  chessBoard.move("wpc2", "b3")
+
+  chessBoard.printBoard()
+
+
+  //  Translation.convertTranslation(new Translation(1, 1), "a2")
 
 //  Translation.convertTranslation(new Translation(1, 1), "h2")
 

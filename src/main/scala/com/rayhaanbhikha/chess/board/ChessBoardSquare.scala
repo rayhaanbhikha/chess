@@ -10,4 +10,8 @@ class ChessBoardSquare(position: String) {
   def chessPiece_= (newChessPiece: ChessPiece): Unit = {
     _chessPiece = Some(newChessPiece)
   }
+
+  def removeChessPiece(): Unit = {
+    _chessPiece = None
+  }
 }
