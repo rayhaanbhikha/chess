@@ -1,11 +1,15 @@
 package com.rayhaanbhikha.chess.services
 
-case class Translation(x: Int, y: Int) {
+case class Translation(var x: Int, var y: Int) {
   def direction: String = if(x == 1 || x == -1) "diagonal" else "vertical"
 
   val isDiagonal: () => Boolean = () => direction == "diagonal"
   val isVertical: () => Boolean = () => direction == "vertical"
 
+  def flip(): Unit = {
+    x *= -1
+    y *= -1
+  }
 }
 
 object Translation {
@@ -45,6 +49,8 @@ object Translation {
     print(s"[${translation.x}, ${translation.y}]\t")
   }
 
-
-
+  def flip(translations: List[Translation]): List[Translation] = {
+      translations.foreach(translation => translation.flip())
+      translations
+  }
 }

@@ -1,6 +1,6 @@
-import Main.pawn
 import com.rayhaanbhikha.chess.board.ChessBoard
 import com.rayhaanbhikha.chess.pieces.{ChessPiece, Pawn}
+import com.rayhaanbhikha.chess.services.Translation
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -12,7 +12,8 @@ object Main extends App {
     pawn,
     pawn.copy(initialPosition = "b2"),
     pawn.copy(initialPosition = "c2"),
-    Pawn("black", initialPosition = "a3")
+    Pawn("black", initialPosition = "b7"),
+    pawn.copy(initialPosition = "b6")
 
   )
   val chessBoard = new ChessBoard(chessPieces)
@@ -23,31 +24,14 @@ object Main extends App {
 
   // select chess piece
 
-  chessBoard.select("wpb2")
-  chessBoard.move("wpb2", "b4")
-  chessBoard.printBoard()
+  chessBoard.select("wpa2")
 
-
-  //  chessBoard.move("wpc2", "b3")
-
+  chessBoard.select("bpb7")
+//  chessBoard.move("wpb2", "b4")
 //  chessBoard.printBoard()
 
 
-  //  Translation.convertTranslation(new Translation(1, 1), "a2")
-
-//  Translation.convertTranslation(new Translation(1, 1), "h2")
-
-
-
-
-
-
-  //  game while loop
-  // select chess piece -
-  // get available moves
-  // make move
-
-  // chessboard is updated and printed.
+  //  chessBoard.move("wpc2", "b3")
 
 //  chessBoard.printBoard()
 
