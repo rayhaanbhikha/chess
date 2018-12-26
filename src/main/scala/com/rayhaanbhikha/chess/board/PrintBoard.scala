@@ -1,7 +1,7 @@
 package com.rayhaanbhikha.chess.board
 
 object PrintBoard {
-  var columns: Array[Char] = Array('a','b','c','d','e','f','g','h')
+  private val columns: List[Char] = Board.columns
   // print board. - reads chessboard squares map.
   def apply(chessBoardSquares: Map[String, ChessBoardSquare]): Unit = {
     printTopRow()

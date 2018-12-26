@@ -1,17 +1,15 @@
 package com.rayhaanbhikha.chess.pieces
 
-import com.rayhaanbhikha.chess.board.{ChessBoard, ChessBoardSquare}
+import com.rayhaanbhikha.chess.board.ChessBoardSquare
 import com.rayhaanbhikha.chess.services.Translation
-
-import scala.collection.mutable.ArrayBuffer
 
 trait ChessPiece {
     val pieceType: String = this.getClass.getSimpleName.toLowerCase
     val value: Int
     val color: String
     val initialPosition: String
-
     var currentPosition: String = initialPosition
+
 
     def possibleMoves: List[Translation]
 
