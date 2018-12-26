@@ -22,7 +22,7 @@ object ChessPieces {
     List(
       blackPawn,
       blackPawn.copy(initialPosition = "b7"),
-      blackPawn.copy(initialPosition = "b3"),
+      blackPawn.copy(initialPosition = "b4"),
     )
   }
 }

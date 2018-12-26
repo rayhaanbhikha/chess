@@ -9,7 +9,7 @@ object Main extends App {
 
   printBoard()
 
-  val chessPieceNames = List("wpa2", "wpb2", "bpb7")
+  val chessPieceNames = List("bpa7", "wpb2", "bpb7", "wpa2")
 
   chessPieceNames.foreach(playChessPiece)
 

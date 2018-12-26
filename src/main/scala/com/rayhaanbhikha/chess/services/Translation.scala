@@ -1,7 +1,10 @@
 package com.rayhaanbhikha.chess.services
 
 case class Translation(var x: Int, var y: Int) {
-  def direction: String = if(x == 1 || x == -1) "diagonal" else "vertical"
+  def direction: String = x match {
+    case 1 | -1 => "diagonal"
+    case _ => "vertical"
+  }
 
   val isDiagonal: () => Boolean = () => direction == "diagonal"
   val isVertical: () => Boolean = () => direction == "vertical"
@@ -10,6 +13,8 @@ case class Translation(var x: Int, var y: Int) {
     x *= -1
     y *= -1
   }
+
+  override def toString: String = s"[$x, $y]"
 }
 
 object Translation {

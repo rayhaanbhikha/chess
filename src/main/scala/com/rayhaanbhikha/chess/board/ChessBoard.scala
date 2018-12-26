@@ -1,7 +1,6 @@
 package com.rayhaanbhikha.chess.board
 
 import com.rayhaanbhikha.chess.pieces.ChessPiece
-import scala.collection.mutable.ArrayBuffer
 
 class ChessBoard(chessPieces: List[ChessPiece]) {
     var columns: Array[Char] = Array('a','b','c','d','e','f','g','h')

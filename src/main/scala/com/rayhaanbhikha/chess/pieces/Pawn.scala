@@ -29,32 +29,44 @@ case class Pawn(color: String, initialPosition: String) extends ChessPiece {
   }
 
   def filterAvailableMoves(availableMoves: List[AvailableMove], chessBoardSquares: Map[String, ChessBoardSquare]): List[String] = {
-    var filteredMoves: List[String] = List()
+    val sortedAvailableMoves = AvailableMove.sort(color, availableMoves)
 
-    var verticalBlock: Boolean = false
 
-    availableMoves.foreach(availableMove => {
-      val translation = availableMove.translation
-      val position = availableMove.position
-      val chessBoardSquare = chessBoardSquares(position)
+    val diagonalMoves = sortedAvailableMoves
+      .filter(_.translation.isDiagonal())
+      .flatMap(diagonalCheck(_, chessBoardSquares))
 
-      // if diagonal -> check is chess board square is not empty.
-      if(translation.isDiagonal() && // check diagonal
-          !chessBoardSquare.isEmpty && // check not empty
-          chessBoardSquare.chessPiece.color != color
-      ) {
-        filteredMoves = position :: filteredMoves
-      }
+    val verticalMoves = sortedAvailableMoves
+      .filter(_.translation.isVertical())
+      .takeWhile(move => chessBoardSquares(move.position).isEmpty) // check if empty
+      .flatMap(verticalCheck(_, chessBoardSquares))
 
-      // if vertical check chess board square is not empty.
-      if(translation.isVertical() && !verticalBlock && chessBoardSquare.isEmpty) {
-        filteredMoves = position :: filteredMoves
-      } else if (translation.isVertical() && !chessBoardSquare.isEmpty) {
-        // chessboard is blocked in vertical direction and therefore cannot go further.
-        verticalBlock = true
-      }
-    })
+    diagonalMoves ::: verticalMoves
+  }
 
-    filteredMoves
+  def diagonalCheck(availableMove: AvailableMove, chessBoardSquares: Map[String, ChessBoardSquare]): Option[String] = {
+
+    val position = availableMove.position
+    val chessBoardSquare = chessBoardSquares(position)
+    if(
+      !chessBoardSquare.isEmpty &&
+      chessBoardSquare.chessPiece.color != color // not same color
+    )
+      Some(position)
+    else
+      None
+  }
+
+  def verticalCheck(availableMove: AvailableMove,
+                    chessBoardSquares: Map[String, ChessBoardSquare]): Option[String] = {
+
+    val position = availableMove.position
+    val chessBoardSquare = chessBoardSquares(position)
+
+    if(chessBoardSquare.isEmpty) {
+      Some(position)
+    } else {
+      None
+    }
   }
 }
