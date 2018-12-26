@@ -21,7 +21,7 @@ trait ChessPiece {
     }
 
     // name = color + pieceType + initialPosition
-    def name: String = s"${color.charAt(0)}${pieceType.charAt(0)}$initialPosition"
+    def name: String = s"${color.charAt(0).toUpper}${pieceType.charAt(0).toUpper}$initialPosition"
 
     def getAvailableMoves(chessBoardSquares: Map[String, ChessBoardSquare]): List[String]
 }
