@@ -9,22 +9,25 @@ object Main extends App {
 
   printBoard()
 
-  val chessPieceName = "wpa2"
-  try {
-    // select chess piece
-    val availableMoves = chessBoard.select(chessPieceName)
-    printAvailableMoves(availableMoves)
+  val chessPieceNames = List("wpa2", "wpb2", "bpb7")
 
+  chessPieceNames.foreach(playChessPiece)
 
-    chessBoard.move(chessPieceName, "a3")
-    printBoard()
-  } catch {
-    case _: NoSuchElementException =>
-      println(s"$chessPieceName does not exist. Please try again")
+  def playChessPiece(chessPieceName: String): Unit = {
+    try {
+      // select chess piece
+      val availableMoves = chessBoard.select(chessPieceName)
+      printAvailableMoves(availableMoves, chessPieceName)
+
+    } catch {
+      case _: NoSuchElementException =>
+        println(s"$chessPieceName does not exist. Please try again")
+    }
   }
 
-  def printAvailableMoves(moves: List[String]): Unit = {
-    println("Available Moves: ")
+  def printAvailableMoves(moves: List[String], chessPieceName: String): Unit = {
+    println(s"Available Moves: $chessPieceName")
     moves.foreach(move => print(s"$move\t"))
+    println("\n========\n")
   }
 }
