@@ -32,17 +32,9 @@ class ChessBoard(chessPieces: ArrayBuffer[ChessPiece]) {
         chessBoardSquare.chessPiece_=(chessPiece)
     }
 
-    def select(chessPieceName: String): Unit = {
-        try {
-            val selectedChessPiece: ChessPiece = getChessPiece(chessPieceName)
-            val availableMoves: List[String] = selectedChessPiece.getAvailableMoves(chessBoardSquares)
-            println(s"\nAvailable moves: $chessPieceName")
-            availableMoves.foreach(move => print(s"$move\t"))
-            println()
-        } catch {
-            case _: NoSuchElementException =>
-                println(s"$chessPieceName does not exist. Please try again")
-        }
+    def select(chessPieceName: String): List[String] = {
+        val selectedChessPiece: ChessPiece = getChessPiece(chessPieceName)
+        selectedChessPiece.getAvailableMoves(chessBoardSquares)
     }
 
 
@@ -60,8 +52,9 @@ class ChessBoard(chessPieces: ArrayBuffer[ChessPiece]) {
 
     }
 
+    @throws(classOf[NoSuchElementException])
     def getChessPiece(chessPieceName: String): ChessPiece =
-        chessPieces.find(chessPiece => chessPiece.name == chessPieceName).get
+        chessPieces.find(_.name == chessPieceName).get
 
 
 

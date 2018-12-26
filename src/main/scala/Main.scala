@@ -6,28 +6,40 @@ import scala.collection.mutable.ArrayBuffer
 
 object Main extends App {
 
-  val pawn: Pawn = Pawn("white", "a2")
+  val whitePawn: Pawn = Pawn("white", "a2")
+  val blackPawn: Pawn = Pawn("black", "a7")
+
 
   val chessPieces: ArrayBuffer[ChessPiece] = ArrayBuffer(
-    pawn,
-    pawn.copy(initialPosition = "b2"),
-    pawn.copy(initialPosition = "c2"),
-    Pawn("black", initialPosition = "b7"),
-    pawn.copy(initialPosition = "b6")
-
+    whitePawn,
+    whitePawn.copy(initialPosition = "b2"),
+    whitePawn.copy(initialPosition = "c2"),
+    whitePawn.copy(initialPosition = "b6"),
+    blackPawn,
+    blackPawn.copy(initialPosition = "b7"),
+    blackPawn.copy(initialPosition = "b3"),
   )
   val chessBoard = new ChessBoard(chessPieces)
-
   chessBoard.printBoard()
 
 
+  val chessPieceName = "bpb7"
+  try {
+    // select chess piece
 
-  // select chess piece
+    val availableMoves = chessBoard.select(chessPieceName)
+    println("Available Moves: ")
+    availableMoves.foreach(move => print(s"$move\t"))
 
-  chessBoard.select("wpa2")
+  } catch {
+    case _: NoSuchElementException =>
+      println(s"$chessPieceName does not exist. Please try again")
+  }
 
-  chessBoard.select("bpb7")
-//  chessBoard.move("wpb2", "b4")
+
+
+
+  //  chessBoard.move("wpb2", "b4")
 //  chessBoard.printBoard()
 
 

@@ -10,7 +10,7 @@ object PrintBoard {
       for(col <- columns) {
         val position: String = s"$col${row+1}"
         if(chessBoardSquares(position).isEmpty)
-          print(s"\t00000")
+          print(s"\t  -  ")
         else
           print(s"\t${chessBoardSquares(position).chessPiece.name} ")
       }
