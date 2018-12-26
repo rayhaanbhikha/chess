@@ -1,4 +1,4 @@
-import com.rayhaanbhikha.chess.board.ChessBoard
+import com.rayhaanbhikha.chess.board.{ChessBoard, PrintBoard}
 import com.rayhaanbhikha.chess.pieces.{ChessPiece, Pawn}
 import com.rayhaanbhikha.chess.services.Translation
 
@@ -20,17 +20,20 @@ object Main extends App {
     blackPawn.copy(initialPosition = "b3"),
   )
   val chessBoard = new ChessBoard(chessPieces)
-  chessBoard.printBoard()
+  val printBoard = () => PrintBoard(chessBoard.chessBoardSquares)
+//  chessBoard.printBoard()
+
+  printBoard()
 
 
-  val chessPieceName = "bpb7"
+  val chessPieceName = "wpa2"
   try {
     // select chess piece
-
     val availableMoves = chessBoard.select(chessPieceName)
     println("Available Moves: ")
     availableMoves.foreach(move => print(s"$move\t"))
-
+    chessBoard.move(chessPieceName, "a3")
+    printBoard()
   } catch {
     case _: NoSuchElementException =>
       println(s"$chessPieceName does not exist. Please try again")

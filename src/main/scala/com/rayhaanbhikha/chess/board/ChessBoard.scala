@@ -56,7 +56,4 @@ class ChessBoard(chessPieces: ArrayBuffer[ChessPiece]) {
     def getChessPiece(chessPieceName: String): ChessPiece =
         chessPieces.find(_.name == chessPieceName).get
 
-
-
-    def printBoard(): Unit = PrintBoard(chessBoardSquares)
 }
