@@ -8,17 +8,16 @@ case class Pawn(color: String, initialPosition: String) extends ChessPiece {
   override val value: Int = 1
   var basicMoves: List[Translation] = List(Translation(0,1), Translation(1,1), Translation(-1,1))
 
-
-  override def possibleMoves: List[Translation] = color match {
-    case "white" => moves
-    case "black" => Translation.flip(moves)
-  }
-
   def moves: List[Translation] = {
     if(active)
       basicMoves
     else
       Translation(0,2) :: basicMoves
+  }
+
+  override def possibleMoves: List[Translation] = color match {
+    case "white" => moves
+    case "black" => moves.map(Translation.flipSign);
   }
 
   override def getAvailableMoves(chessBoardSquares: Map[String, ChessBoardSquare]): List[String] = {
@@ -56,8 +55,7 @@ case class Pawn(color: String, initialPosition: String) extends ChessPiece {
       None
   }
 
-  def verticalCheck(availableMove: AvailableMove,
-                    chessBoardSquares: Map[String, ChessBoardSquare]): Option[String] = {
+  def verticalCheck(availableMove: AvailableMove, chessBoardSquares: Map[String, ChessBoardSquare]): Option[String] = {
 
     val position = availableMove.position
     val chessBoardSquare = chessBoardSquares(position)

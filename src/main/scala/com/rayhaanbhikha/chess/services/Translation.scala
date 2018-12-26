@@ -11,11 +11,6 @@ case class Translation(var x: Int, var y: Int) {
   val isDiagonal: () => Boolean = () => direction == "diagonal"
   val isVertical: () => Boolean = () => direction == "vertical"
 
-  def flip(): Unit = {
-    x *= -1
-    y *= -1
-  }
-
   override def toString: String = s"[$x, $y]"
 }
 
@@ -37,27 +32,17 @@ object Translation {
        Some(availableMove)
     } catch {
       case _: IndexOutOfBoundsException =>
-//        println(s"\n($col, $row) -> [${translation.x}, ${translation.y}]  x")
         None
     }
   }
 
-  /**
-    *
-    * @param translations
-    * @param currentPos
-    * @return List[String] - i.e. moves in string format.
-    */
   def convertTranslations(translations: List[Translation], currentPos: String): List[AvailableMove] = {
     translations.flatMap(convertTranslation(_, currentPos))
   }
 
-  def prettyPrint(translation: Translation): Unit = {
-    print(s"[${translation.x}, ${translation.y}]\t")
-  }
-
-  def flip(translations: List[Translation]): List[Translation] = {
-      translations.foreach(translation => translation.flip())
-      translations
+  def flipSign(translation: Translation): Translation = {
+    translation.x *= -1
+    translation.y *= -1
+    translation
   }
 }
