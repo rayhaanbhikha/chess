@@ -18,17 +18,11 @@ class ChessBoard(chessPieces: List[ChessPiece]) {
             }
         }
 
-        // map all chessboard pieces.
+        // place chess pieces on board.
         for(chessPiece <- chessPieces) {
-            placeChessPiece(chessPiece, chessBoardSquares)
+            val position: String = chessPiece.currentPosition
+            chessBoardSquares(position).chessPiece_=(chessPiece)
         }
-    }
-
-    // initialiseChessPiece on chessboard
-    def placeChessPiece(chessPiece: ChessPiece, chessBoardSquares: Map[String, ChessBoardSquare]): Unit = {
-        val position: String = chessPiece.currentPosition
-        val chessBoardSquare: ChessBoardSquare = chessBoardSquares(position)
-        chessBoardSquare.chessPiece_=(chessPiece)
     }
 
     def select(chessPieceName: String): List[String] = {

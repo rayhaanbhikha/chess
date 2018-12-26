@@ -1,5 +1,7 @@
 package com.rayhaanbhikha.chess.services
 
+import com.rayhaanbhikha.chess.board.Board
+
 case class Translation(var x: Int, var y: Int) {
   def direction: String = x match {
     case 1 | -1 => "diagonal"
@@ -18,7 +20,7 @@ case class Translation(var x: Int, var y: Int) {
 }
 
 object Translation {
-  var chessBoardColumns = List('a','b','c','d','e','f','g','h')
+  var chessBoardColumns: List[Char] = Board.columns
   var chessBoardRows = Range(1,9)
 
   def convertTranslation(translation: Translation, currentPos: String): Option[AvailableMove] = {
