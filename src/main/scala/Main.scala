@@ -13,12 +13,18 @@ object Main extends App {
   try {
     // select chess piece
     val availableMoves = chessBoard.select(chessPieceName)
-    println("Available Moves: ")
-    availableMoves.foreach(move => print(s"$move\t"))
+    printAvailableMoves(availableMoves)
+
+
     chessBoard.move(chessPieceName, "a3")
     printBoard()
   } catch {
     case _: NoSuchElementException =>
       println(s"$chessPieceName does not exist. Please try again")
+  }
+
+  def printAvailableMoves(moves: List[String]): Unit = {
+    println("Available Moves: ")
+    moves.foreach(move => print(s"$move\t"))
   }
 }
