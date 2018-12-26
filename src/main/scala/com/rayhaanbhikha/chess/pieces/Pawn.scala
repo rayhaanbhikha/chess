@@ -29,8 +29,7 @@ case class Pawn(color: String, initialPosition: String) extends ChessPiece {
   }
 
   def filterAvailableMoves(availableMoves: List[AvailableMove], chessBoardSquares: Map[String, ChessBoardSquare]): List[String] = {
-    val sortedAvailableMoves = AvailableMove.sort(color, availableMoves)
-
+    val sortedAvailableMoves = AvailableMove.sort(color, availableMoves) // sort translation vectors depending on color of pawn.
 
     val diagonalMoves = sortedAvailableMoves
       .filter(_.translation.isDiagonal())
