@@ -6,18 +6,18 @@ import com.rayhaanbhikha.chess.services.{AvailableMove, Translation}
 case class Pawn(color: String, initialPosition: String) extends ChessPiece {
 
   override val value: Int = 1
-  var basicMoves: List[Translation] = List(Translation(0,1), Translation(1,1), Translation(-1,1))
+  var basicMoves: () => List[Translation] = () => List(Translation(0,1), Translation(1,1), Translation(-1,1))
 
-  def moves: List[Translation] = {
+  def getMoves: List[Translation] = {
     if(active)
-      basicMoves
+      basicMoves()
     else
-      Translation(0,2) :: basicMoves
+      Translation(0,2) :: basicMoves()
   }
 
   override def possibleMoves: List[Translation] = color match {
-    case "white" => moves
-    case "black" => moves.map(Translation.flipSign);
+      case "white" => getMoves
+      case "black" => getMoves.map(Translation.flipSign)
   }
 
   override def getAvailableMoves(chessBoardSquares: Map[String, ChessBoardSquare]): List[String] = {
@@ -65,5 +65,17 @@ case class Pawn(color: String, initialPosition: String) extends ChessPiece {
     } else {
       None
     }
+  }
+
+  override def movePiece(newPosition: String, chessBoardSquares: Map[String, ChessBoardSquare]): Unit = {
+
+    // 1. move selected piece to new position.
+    chessBoardSquares(newPosition).chessPiece = this
+
+    // 2. remove selected piece from it's previous position.
+    chessBoardSquares(this.currentPosition).removeChessPiece()
+
+    // 3. update pawns current position
+    this.currentPosition = newPosition
   }
 }

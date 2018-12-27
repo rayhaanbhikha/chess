@@ -33,16 +33,7 @@ class ChessBoard(chessPieces: List[ChessPiece]) {
 
     def move(chessPieceName: String, newPosition: String): Unit = {
         val selectedChessPiece: ChessPiece = getChessPiece(chessPieceName)
-
-        // move Chess Piece to new position.
-        chessBoardSquares(newPosition).chessPiece_=(selectedChessPiece)
-
-        // remove chessPiece from prev position.
-        chessBoardSquares(selectedChessPiece.currentPosition).removeChessPiece()
-
-        // update 'current position' on selectedPiece
-        selectedChessPiece.currentPosition = newPosition
-
+        selectedChessPiece.movePiece(newPosition, chessBoardSquares)
     }
 
     @throws(classOf[NoSuchElementException])
