@@ -3,7 +3,7 @@ package com.rayhaanbhikha.chess.pieces
 import com.rayhaanbhikha.chess.board.ChessBoardSquare
 import com.rayhaanbhikha.chess.services.{AvailableMove, Translation}
 
-case class Pawn(color: String, initialPosition: String) extends ChessPiece {
+case class Pawn(name: String, override var currentPosition: String) extends ChessPiece {
 
   override val value: Int = 1
   var basicMoves: () => List[Translation] = () => List(Translation(0,1), Translation(1,1), Translation(-1,1))

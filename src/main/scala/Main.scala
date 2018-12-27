@@ -11,19 +11,20 @@ object Main extends App {
   val bp = "BPa7"
 
 
-//  printBoard()
-
-//  makeMove(bp, "a6")
-
+  printBoard()
 //
-  availableMoves(bp)
-
+//  makeMove(bp, "a6")
+//
+//
+  availableMoves("WPa2")
+  availableMoves(wp)
+//
 //  makeMove(bp, "a5")
 //
-  availableMoves(bp)
+//  availableMoves(bp)
 //
 //  makeMove(bp, "b2")
-
+//
 //  availableMoves(bp)
 
   def makeMove(chessPieceName: String, newPos: String): Unit = {

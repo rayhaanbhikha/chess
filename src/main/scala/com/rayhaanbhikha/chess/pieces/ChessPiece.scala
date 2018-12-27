@@ -4,12 +4,18 @@ import com.rayhaanbhikha.chess.board.ChessBoardSquare
 import com.rayhaanbhikha.chess.services.Translation
 
 trait ChessPiece {
+
+    val name: String
     val pieceType: String = this.getClass.getSimpleName.toLowerCase
     val value: Int
-    val color: String
-    val initialPosition: String
-    var currentPosition: String = initialPosition
+    var currentPosition: String
 
+    def initialPosition: String = name.substring(2)
+
+    def color: String = name.charAt(0) match {
+        case 'W' | 'w' => "white"
+        case 'B' | 'b' => "black"
+    }
 
     def possibleMoves: List[Translation]
 
@@ -29,9 +35,6 @@ trait ChessPiece {
         else
             false
     }
-
-    // name = color + pieceType + initialPosition
-    def name: String = s"${color.charAt(0).toUpper}${pieceType.charAt(0).toUpper}$initialPosition"
 
     def getAvailableMoves(chessBoardSquares: Map[String, ChessBoardSquare]): List[String]
 
