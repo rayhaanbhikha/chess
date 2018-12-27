@@ -13,17 +13,31 @@ object ChessPieces {
 
   def whitePieces: List[ChessPiece] = {
     val color = "white"
-    pawns(color, 2) ::: knights(color, 1)
+    pawns(color, 2) :::
+      knights(color, 1) :::
+      bishops(color, 1)
   }
 
   def blackPieces: List[ChessPiece] = {
     val color = "black"
-    pawns(color, 7) ::: knights(color, 8)
+    pawns(color, 7) :::
+      knights(color, 8) :::
+      bishops(color, 8)
+  }
+
+  def bishops(color: String, row: Int): List[Bishop] = {
+    var bishops: List[Bishop] = List()
+    val columns: List[Char] =  List('c', 'f')
+    columns.foreach(col => {
+      val piece = new Piece(color, "bishop", col, row)
+      bishops = Bishop(piece.name, piece.position) :: bishops
+    })
+    bishops
   }
 
   def knights(color: String, row: Int): List[Knight] = {
     var knights: List[Knight] = List()
-    val columns: List[Char] =  List('b', 'f')
+    val columns: List[Char] =  List('b', 'g')
     columns.foreach(col => {
       val piece = new Piece(color, "knight", col, row)
       knights = Knight(piece.name, piece.position) :: knights

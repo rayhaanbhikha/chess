@@ -1,5 +1,5 @@
 import com.rayhaanbhikha.chess.board.{ChessBoard, PrintBoard}
-import com.rayhaanbhikha.chess.pieces.{ChessPiece, ChessPieces}
+import com.rayhaanbhikha.chess.pieces.{Bishop, ChessPiece, ChessPieces}
 
 object Main extends App {
 
@@ -8,10 +8,10 @@ object Main extends App {
   val printBoard = () => PrintBoard(chessBoard.chessBoardSquares)
 
   printBoard()
-
-  availableMoves("BKb8")
-
-  makeMove("BKb8", "b4")
+//
+  availableMoves("WBc1")
+//
+//  makeMove("BKb8", "b4")
 
 
   def makeMove(chessPieceName: String, newPos: String): Unit = {
