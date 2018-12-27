@@ -15,27 +15,20 @@ case class Translation(var x: Int, var y: Int) {
 }
 
 object Translation {
-  var chessBoardColumns: List[Char] = Board.columns
-  var chessBoardRows = Range(0,8)
 
   def convertTranslation(translation: Translation, currentPos: String): Option[AvailableMove] = {
 
-    val col = currentPos.charAt(0) // a
-    val row = currentPos.charAt(1).toInt - 48 // 2
-
     try {
-      val newColIndex = chessBoardColumns.indexOf(col + translation.x) // Int
-      val newRowIndex = chessBoardRows.indexOf(row + translation.y)
+      val col = currentPos.charAt(0)
+      val row = currentPos.charAt(1).toInt - 48
 
-      if(newColIndex == -1 || newRowIndex == -1 ) throw new IndexOutOfBoundsException("hello")
-
-      val newCol = chessBoardColumns(newColIndex)
-      val newRow = chessBoardRows(newRowIndex)
+      val newCol = Board.getNewCol(col, translation.x)
+      val newRow = Board.getNewRow(row, translation.y)
 
       val newPosition = s"$newCol$newRow"
-      println(newPosition)
       val availableMove = new AvailableMove(translation, newPosition)
-       Some(availableMove)
+
+      Some(availableMove)
     } catch {
       case _: IndexOutOfBoundsException =>
         None

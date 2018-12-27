@@ -18,18 +18,32 @@ case class Knight(override val name: String, override var currentPosition: Strin
   }
 
   override def getAvailableMoves(chessBoardSquares: Map[String, ChessBoardSquare]): List[String] = {
+//    possibleMoves.foreach(p => println(p.toString))
     val availableMoves: List[AvailableMove] = Translation.convertTranslations(possibleMoves, currentPosition)
-//    availableMoves.foreach(a => println(s"\t${a.translation.toString}"))
-    List("a")
+//    availableMoves.foreach(a => print(s"\t ${a.position}"))
+    availableMoves.flatMap(filterMove(_, chessBoardSquares))
   }
 
-  def filterMove(availableMove: AvailableMove, chessBoardSquares: Map[String, ChessBoardSquare]) = {
+  def filterMove(availableMove: AvailableMove, chessBoardSquares: Map[String, ChessBoardSquare]): Option[String] = {
     val position = availableMove.position
     val chessBoardSquare = chessBoardSquares(position)
 
-
-
+    if(chessBoardSquare.isEmpty)
+      Some(position)
+    else if(chessBoardSquare.chessPiece.color != color)
+      Some(position)
+    else
+      None
   }
 
-  override def movePiece(newPosition: String, chessBoardSquares: Map[String, ChessBoardSquare]): Unit = {}
+  override def movePiece(newPosition: String, chessBoardSquares: Map[String, ChessBoardSquare]): Unit = {
+    // 1. move selected piece to new position.
+    chessBoardSquares(newPosition).chessPiece = this
+
+    // 2. remove selected piece from it's previous position. (if it exists)
+    chessBoardSquares(this.currentPosition).removeChessPiece()
+
+    // 3. update pawns current position
+    this.currentPosition = newPosition
+  }
 }

@@ -72,7 +72,7 @@ case class Pawn(override val name: String, override var currentPosition: String)
     // 1. move selected piece to new position.
     chessBoardSquares(newPosition).chessPiece = this
 
-    // 2. remove selected piece from it's previous position.
+    // 2. remove selected piece from it's previous position. (if it exists)
     chessBoardSquares(this.currentPosition).removeChessPiece()
 
     // 3. update pawns current position

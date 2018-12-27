@@ -7,29 +7,12 @@ object Main extends App {
   val chessBoard = new ChessBoard(chessPieces)
   val printBoard = () => PrintBoard(chessBoard.chessBoardSquares)
 
-  val wp = "WPb2"
-  val bp = "BPa7"
-
-
   printBoard()
-//
-//  makeMove(bp, "a6")
-//
-//
-  availableMoves("WPa2")
-
-  availableMoves("WPb2")
 
   availableMoves("BKb8")
-//  availableMoves(wp)
-//
-//  makeMove(bp, "a5")
-//
-//  availableMoves(bp)
-//
-//  makeMove(bp, "b2")
-//
-//  availableMoves(bp)
+
+  makeMove("BKb8", "b4")
+
 
   def makeMove(chessPieceName: String, newPos: String): Unit = {
     chessBoard.move(chessPieceName, newPos)
