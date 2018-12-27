@@ -29,7 +29,7 @@ object ChessPieces {
   }
 }
 
-class Piece (color: String, pieceType: String, col: Char, row: Int) {
+private class Piece (color: String, pieceType: String, col: Char, row: Int) {
   private val conf: Config = ConfigFactory.load("chesspieces.conf")
 
   def name: String = s"${color.charAt(0).toUpper}${pieceType.charAt(0).toUpper}$col$row"
