@@ -12,12 +12,25 @@ object ChessPieces {
   }
 
   def whitePieces: List[ChessPiece] = {
-    pawns("white", 2)
+    val color = "white"
+    pawns(color, 2) ::: knights(color, 1)
   }
 
   def blackPieces: List[ChessPiece] = {
-    pawns("black", 7)
+    val color = "black"
+    pawns(color, 7) ::: knights(color, 8)
   }
+
+  def knights(color: String, row: Int): List[Knight] = {
+    var knights: List[Knight] = List()
+    val columns: List[Char] =  List('b', 'f')
+    columns.foreach(col => {
+      val piece = new Piece(color, "knight", col, row)
+      knights = Knight(piece.name, piece.position) :: knights
+    })
+    knights
+  }
+
 
   def pawns(color: String, row: Int): List[Pawn] = {
     var pawns: List[Pawn] = List()
@@ -34,5 +47,5 @@ private class Piece (color: String, pieceType: String, col: Char, row: Int) {
 
   def name: String = s"${color.charAt(0).toUpper}${pieceType.charAt(0).toUpper}$col$row"
 
-  def position: String = conf.getString(s"$color.pawn.$name")
+  def position: String = conf.getString(s"$color.$pieceType.$name")
 }

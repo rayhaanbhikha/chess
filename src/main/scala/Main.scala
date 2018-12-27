@@ -17,7 +17,11 @@ object Main extends App {
 //
 //
   availableMoves("WPa2")
-  availableMoves(wp)
+
+  availableMoves("WPb2")
+
+  availableMoves("BKb8")
+//  availableMoves(wp)
 //
 //  makeMove(bp, "a5")
 //
