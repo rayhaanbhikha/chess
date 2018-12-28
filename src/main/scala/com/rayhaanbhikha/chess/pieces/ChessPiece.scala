@@ -17,14 +17,14 @@ trait ChessPiece {
         case 'B' | 'b' => "black"
     }
 
-    def possibleMoves: Any
-
     def active: Boolean = {
       if(currentPosition.equals(initialPosition))
         false
       else
         true
     }
+
+    def possibleMoves: Any
 
     def movedUpTwo: Boolean = {
         val initialRow = initialPosition.charAt(1).toInt - 48
@@ -36,7 +36,18 @@ trait ChessPiece {
             false
     }
 
+
     def getAvailableMoves(chessBoardSquares: Map[String, ChessBoardSquare]): List[String]
 
-    def movePiece(newPosition: String, chessBoardSquares: Map[String, ChessBoardSquare]): Unit
+    def movePiece(newPosition: String, chessBoardSquares: Map[String, ChessBoardSquare]): Unit = {
+
+        // 1. move selected piece to new position.
+        chessBoardSquares(newPosition).chessPiece = this
+
+        // 2. remove selected piece from it's previous position. (if it exists)
+        chessBoardSquares(this.currentPosition).removeChessPiece()
+
+        // 3. update pawns current position
+        this.currentPosition = newPosition
+    }
 }

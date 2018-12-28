@@ -69,15 +69,4 @@ case class Rook(override val name: String, override var currentPosition: String)
 
     filteredMoves
   }
-  override def movePiece(newPosition: String, chessBoardSquares: Map[String, ChessBoardSquare]): Unit = {
-
-    // 1. move selected piece to new position.
-    chessBoardSquares(newPosition).chessPiece = this
-
-    // 2. remove selected piece from it's previous position. (if it exists)
-    chessBoardSquares(this.currentPosition).removeChessPiece()
-
-    // 3. update pawns current position
-    this.currentPosition = newPosition
-  }
 }
