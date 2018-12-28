@@ -7,34 +7,39 @@ import util.control.Breaks._
 case class Bishop(override val name: String, override var currentPosition: String) extends ChessPiece {
   override val value: Int = 3
 
-  override def possibleMoves: List[Translation] = {
-      var moves: List[Translation] = List()
-      for(row <- Board.rows) {
-        moves = Translation(row, row) ::
-                Translation(row, -row) ::
-                Translation(-row, -row) ::
-                Translation(-row, row) ::
-                moves
+  override def possibleMoves: Map[String, List[Translation]] = {
+    var mNorthEast: List[Translation] = List()
+    var mNorthWest: List[Translation] = List()
+    var mSouthWest: List[Translation] = List()
+    var mSouthEast: List[Translation] = List()
+
+      for( row <- Board.rows.reverse) {
+        mNorthEast = Translation(row, row) :: mNorthEast
+        mSouthEast = Translation(row, -row) :: mSouthEast
+        mSouthWest = Translation(-row, -row) :: mSouthWest
+        mNorthWest = Translation(-row, row) :: mNorthWest
       }
-    moves
+    Map(
+      "mNorthEast" -> mNorthEast,
+      "mSouthEast" -> mSouthEast,
+      "mSouthWest" -> mSouthWest,
+      "mNorthWest" -> mNorthWest
+    )
   }
 
   override def getAvailableMoves(chessBoardSquares: Map[String, ChessBoardSquare]): List[String] = {
 
     var movesToReturn: List[String] = List()
-    val moves: Map[String, List[Translation]] = splitMoves(possibleMoves)
-    var allAvailableMoves: Map[String, List[String]] = Map()
 
-    for ((direction, possibleMoves) <- moves) {
-      val availableMoves: List[AvailableMove] = Translation.convertTranslations(possibleMoves, currentPosition)
+    for ((_, moves) <- possibleMoves) {
+      // translations -> availableMoves
+      val availableMoves: List[AvailableMove] = Translation.convertTranslations(moves, currentPosition)
+
+      // filter List of available moves.
       val filteredAvailableMoves: List[String] = filterMoves(availableMoves, chessBoardSquares)
-      allAvailableMoves += (direction -> filteredAvailableMoves)
-    }
 
-    for ((_, availableMoves) <- allAvailableMoves) {
-      movesToReturn = availableMoves ::: movesToReturn
+      movesToReturn = filteredAvailableMoves ::: movesToReturn
     }
-
 
     movesToReturn
   }
@@ -75,32 +80,5 @@ case class Bishop(override val name: String, override var currentPosition: Strin
 
     // 3. update pawns current position
     this.currentPosition = newPosition
-  }
-
-
-  def splitMoves(moves: List[Translation]): Map[String, List[Translation]] = {
-    var mNorthEast: List[Translation] = List()
-    var mNorthWest: List[Translation] = List()
-    var mSouthWest: List[Translation] = List()
-    var mSouthEast: List[Translation] = List()
-
-    moves.foreach(move => {
-      if(move.x > 0 && move.y > 0)
-        mNorthEast =  move :: mNorthEast
-      if(move.x > 0 && move.y < 0)
-        mSouthEast =  move :: mSouthEast
-      if(move.x < 0 && move.y < 0)
-        mSouthWest = move :: mSouthWest
-      if(move.x < 0 && move.y > 0)
-        mNorthWest = move :: mNorthWest
-    })
-
-
-    Map(
-        "mNorthEast" -> mNorthEast,
-        "mSouthEast" -> mSouthEast,
-        "mSouthWest" -> mSouthWest,
-        "mNorthWest" -> mNorthWest
-      )
   }
 }
