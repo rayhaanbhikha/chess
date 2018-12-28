@@ -17,7 +17,7 @@ trait ChessPiece {
         case 'B' | 'b' => "black"
     }
 
-    def possibleMoves: List[Translation]
+    def possibleMoves: Any
 
     def active: Boolean = {
       if(currentPosition.equals(initialPosition))
