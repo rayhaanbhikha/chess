@@ -1,36 +1,23 @@
+import com.rayhaanbhikha.chess.Game.{ChessPieces, Player}
 import com.rayhaanbhikha.chess.board.{ChessBoard, PrintBoard}
-import com.rayhaanbhikha.chess.pieces.ChessPiece
-import com.rayhaanbhikha.chess.services.ChessPieces
 
 object Main extends App {
 
-  val chessPieces: List[ChessPiece] = ChessPieces()
-  val chessBoard = new ChessBoard(chessPieces)
+  // generate players
+  val player1 = Player("white", "Ray")
+  val player2 = Player("black", "Riz")
+
+  // check color here for each player first. throw exception.
+
+  // generate chess pieces
+  val whiteChessPieces = ChessPieces(player1)
+  val blackChessPieces = ChessPieces(player2)
+  val s = "s"
+
+  val chessBoard = new ChessBoard(whiteChessPieces ::: blackChessPieces)
   val printBoard = () => PrintBoard(chessBoard.chessBoardSquares)
 
   printBoard()
-
-  val testCandidate = "BRh8"
-
-  availableMoves(testCandidate)
-
-  makeMove(testCandidate, "h7")
-
-  availableMoves(testCandidate)
-
-  makeMove(testCandidate, "h6")
-
-  availableMoves(testCandidate)
-
-//  availableMoves("WBc1")
-//  makeMove("WBc1", "b2")
-//  availableMoves("WBc1")
-//
-//  makeMove("BPe7", "e5")
-//  availableMoves("WBc1")
-//
-//  makeMove("WPd2", "d4")
-//  availableMoves("WBc1")
 
 
   def makeMove(chessPieceName: String, newPos: String): Unit = {

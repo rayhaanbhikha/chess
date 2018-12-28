@@ -1,5 +1,6 @@
 package com.rayhaanbhikha.chess.pieces
 
+import com.rayhaanbhikha.chess.Game.Player
 import com.rayhaanbhikha.chess.board.ChessBoardSquare
 
 trait ChessPiece {
@@ -8,6 +9,7 @@ trait ChessPiece {
     val pieceType: String = this.getClass.getSimpleName.toLowerCase
     val value: Int
     var currentPosition: String
+    val player: Player
 
     def initialPosition: String = name.substring(2)
 

@@ -1,8 +1,11 @@
 package com.rayhaanbhikha.chess.pieces
+import com.rayhaanbhikha.chess.Game.Player
 import com.rayhaanbhikha.chess.board.{Board, ChessBoardSquare}
 import com.rayhaanbhikha.chess.services.{GenericChessPiece, Translation}
 
-case class Rook(override val name: String, override var currentPosition: String) extends ChessPiece {
+case class Rook(override val name: String,
+                override var currentPosition: String,
+                override val player: Player) extends ChessPiece {
   override val value: Int = 5
 
   def possibleMoves: Map[String, List[Translation]] = {

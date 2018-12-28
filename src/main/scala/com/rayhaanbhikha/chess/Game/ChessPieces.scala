@@ -1,4 +1,4 @@
-package com.rayhaanbhikha.chess.services
+package com.rayhaanbhikha.chess.Game
 
 import com.rayhaanbhikha.chess.board.Board
 import com.rayhaanbhikha.chess.pieces._
@@ -15,29 +15,21 @@ object ChessPieces {
 
   private val columns = Board.columns
 
-  def apply(): List[ChessPiece] = {
-    whitePieces ::: blackPieces
+  def apply(player: Player): List[ChessPiece] = {
+    val color = player.color
+    val pawnRow = color match {
+      case "white" => 2
+      case "black" => 7
+    }
+
+    // returns list of chess pieces.
+    pawns(color, pawnRow, player) :::
+      chessPieces(color, player, "knight" ) :::
+      chessPieces(color, player, "bishop") :::
+      chessPieces(color, player, "rook")
   }
 
-  def whitePieces: List[ChessPiece] = {
-    val color = "white"
-    pawns(color, 2) :::
-    chessPieces(color, "knight") :::
-    chessPieces(color, "bishop") :::
-    chessPieces(color, "rook")
-
-  }
-
-  def blackPieces: List[ChessPiece] = {
-    val color = "black"
-    pawns(color, 7) :::
-      chessPieces(color, "knight") :::
-      chessPieces(color, "bishop") :::
-      chessPieces(color, "rook")
-
-  }
-
-  def chessPieces(color: String, pieceType: String): List[ChessPiece] = {
+  def chessPieces(color: String, player: Player, pieceType: String): List[ChessPiece] = {
     var chessPieces: List[ChessPiece] = List()
 
     val columns: List[Char] = pieceType match {
@@ -55,9 +47,9 @@ object ChessPieces {
     columns.foreach(col => {
       val piece = new Piece(color, pieceType, col, row)
       val chessPiece: ChessPiece = pieceType match {
-        case "knight" => Knight(piece.name, piece.position)
-        case "bishop" => Bishop(piece.name, piece.position)
-        case "rook" => Rook(piece.name, piece.position)
+        case "knight" => Knight(piece.name, piece.position, player)
+        case "bishop" => Bishop(piece.name, piece.position, player)
+        case "rook" => Rook(piece.name, piece.position, player)
       }
 
       chessPieces = chessPiece :: chessPieces
@@ -66,11 +58,11 @@ object ChessPieces {
   }
 
 
-  def pawns(color: String, row: Int): List[Pawn] = {
+  def pawns(color: String, row: Int, player: Player): List[Pawn] = {
     var pawns: List[Pawn] = List()
     for(col <- columns) {
       val piece = new Piece(color, "pawn", col, row)
-      pawns = Pawn(piece.name, piece.position) :: pawns
+      pawns = Pawn(piece.name, piece.position, player) :: pawns
     }
     pawns
   }
