@@ -38,10 +38,4 @@ object Translation {
   def convertTranslations(translations: List[Translation], currentPos: String): List[AvailableMove] = {
     translations.flatMap(convertTranslation(_, currentPos))
   }
-
-  def flipSign(translation: Translation): Translation = {
-    translation.x *= -1
-    translation.y *= -1
-    translation
-  }
 }
