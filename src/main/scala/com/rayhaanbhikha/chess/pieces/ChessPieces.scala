@@ -3,6 +3,13 @@ package com.rayhaanbhikha.chess.pieces
 import com.rayhaanbhikha.chess.board.Board
 import com.typesafe.config.{Config, ConfigFactory}
 
+/*
+* Singleton object retrieves chesspieces configuration from chesspiece.conf
+* (which holds each chess pieces initial position)
+* and returns a list of chesspieces.
+*
+* */
+
 object ChessPieces {
 
   private val columns = Board.columns
@@ -14,35 +21,47 @@ object ChessPieces {
   def whitePieces: List[ChessPiece] = {
     val color = "white"
     pawns(color, 2) :::
-      knights(color, 1) :::
-      bishops(color, 1)
+    chessPieces(color, "knight") :::
+    chessPieces(color, "bishop") :::
+    chessPieces(color, "rook")
+
   }
 
   def blackPieces: List[ChessPiece] = {
     val color = "black"
     pawns(color, 7) :::
-      knights(color, 8) :::
-      bishops(color, 8)
+      chessPieces(color, "knight") :::
+      chessPieces(color, "bishop") :::
+      chessPieces(color, "rook")
+
   }
 
-  def bishops(color: String, row: Int): List[Bishop] = {
-    var bishops: List[Bishop] = List()
-    val columns: List[Char] =  List('c', 'f')
-    columns.foreach(col => {
-      val piece = new Piece(color, "bishop", col, row)
-      bishops = Bishop(piece.name, piece.position) :: bishops
-    })
-    bishops
-  }
+  def chessPieces(color: String, pieceType: String): List[ChessPiece] = {
+    var chessPieces: List[ChessPiece] = List()
 
-  def knights(color: String, row: Int): List[Knight] = {
-    var knights: List[Knight] = List()
-    val columns: List[Char] =  List('b', 'g')
+    val columns: List[Char] = pieceType match {
+      case "knight" => List('b', 'g')
+      case "bishop" => List('c','f')
+      case "rook" => List('a','h')
+    }
+
+    val row: Int = color match {
+      case "white" => 1
+      case "black" => 8
+    }
+
+
     columns.foreach(col => {
-      val piece = new Piece(color, "knight", col, row)
-      knights = Knight(piece.name, piece.position) :: knights
+      val piece = new Piece(color, pieceType, col, row)
+      val chessPiece: ChessPiece = pieceType match {
+        case "knight" => Knight(piece.name, piece.position)
+        case "bishop" => Bishop(piece.name, piece.position)
+        case "rook" => Rook(piece.name, piece.position)
+      }
+
+      chessPieces = chessPiece :: chessPieces
     })
-    knights
+    chessPieces
   }
 
 

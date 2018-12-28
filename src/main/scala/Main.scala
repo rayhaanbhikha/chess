@@ -9,15 +9,27 @@ object Main extends App {
 
   printBoard()
 
-  availableMoves("WBc1")
-  makeMove("WBc1", "b2")
-  availableMoves("WBc1")
+  val testCandidate = "BRh8"
 
-  makeMove("BPe7", "e5")
-  availableMoves("WBc1")
+  availableMoves(testCandidate)
 
-  makeMove("WPd2", "d4")
-  availableMoves("WBc1")
+  makeMove(testCandidate, "h7")
+
+  availableMoves(testCandidate)
+
+  makeMove(testCandidate, "h6")
+
+  availableMoves(testCandidate)
+
+//  availableMoves("WBc1")
+//  makeMove("WBc1", "b2")
+//  availableMoves("WBc1")
+//
+//  makeMove("BPe7", "e5")
+//  availableMoves("WBc1")
+//
+//  makeMove("WPd2", "d4")
+//  availableMoves("WBc1")
 
 
   def makeMove(chessPieceName: String, newPos: String): Unit = {
