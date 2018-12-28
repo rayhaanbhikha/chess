@@ -1,7 +1,6 @@
 package com.rayhaanbhikha.chess.pieces
 
 import com.rayhaanbhikha.chess.board.ChessBoardSquare
-import com.rayhaanbhikha.chess.services.Translation
 
 trait ChessPiece {
 
@@ -23,8 +22,6 @@ trait ChessPiece {
       else
         true
     }
-
-    def possibleMoves: Any
 
     def movedUpTwo: Boolean = {
         val initialRow = initialPosition.charAt(1).toInt - 48

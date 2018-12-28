@@ -1,5 +1,6 @@
 import com.rayhaanbhikha.chess.board.{ChessBoard, PrintBoard}
-import com.rayhaanbhikha.chess.pieces.{ChessPiece, ChessPieces}
+import com.rayhaanbhikha.chess.pieces.ChessPiece
+import com.rayhaanbhikha.chess.services.ChessPieces
 
 object Main extends App {
 

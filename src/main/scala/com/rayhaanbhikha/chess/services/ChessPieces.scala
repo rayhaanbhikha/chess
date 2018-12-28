@@ -1,6 +1,7 @@
-package com.rayhaanbhikha.chess.pieces
+package com.rayhaanbhikha.chess.services
 
 import com.rayhaanbhikha.chess.board.Board
+import com.rayhaanbhikha.chess.pieces._
 import com.typesafe.config.{Config, ConfigFactory}
 
 /*

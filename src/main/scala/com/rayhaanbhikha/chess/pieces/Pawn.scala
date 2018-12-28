@@ -15,7 +15,7 @@ case class Pawn(override val name: String, override var currentPosition: String)
       Translation(0,2) :: basicMoves()
   }
 
-  override def possibleMoves: List[Translation] = color match {
+  def possibleMoves: List[Translation] = color match {
       case "white" => getMoves
       case "black" => getMoves.map(Translation.flipSign)
   }
@@ -65,17 +65,5 @@ case class Pawn(override val name: String, override var currentPosition: String)
     } else {
       None
     }
-  }
-
-  override def movePiece(newPosition: String, chessBoardSquares: Map[String, ChessBoardSquare]): Unit = {
-
-    // 1. move selected piece to new position.
-    chessBoardSquares(newPosition).chessPiece = this
-
-    // 2. remove selected piece from it's previous position. (if it exists)
-    chessBoardSquares(this.currentPosition).removeChessPiece()
-
-    // 3. update pawns current position
-    this.currentPosition = newPosition
   }
 }
