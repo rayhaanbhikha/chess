@@ -5,15 +5,14 @@ object PrintBoard {
   // print board. - reads chessboard squares map.
   def apply(chessBoardSquares: Map[String, ChessBoardSquare]): Unit = {
 
-    printTopRow()
+    printTopRow
     for {
       row <- Board.rows
       col <- columns
     } yield {
 
         if(col == 'a' ) print(row)
-
-        val position: String = s"$col${row}"
+        val position: String = s"$col$row"
         if(chessBoardSquares(position).isEmpty)
           print(s"\t  -  ")
         else
@@ -24,18 +23,34 @@ object PrintBoard {
           println()
         }
     }
-    printBottomRow()
+    printBottomRow
   }
 
-  def printTopRow(): Unit = {
-    printRow()
-    printLine()
+  def printSquareRow: Unit = {
+    print("+ - +")
+    println()
+    print("|   |")
+    println()
+    print("+ - +")
   }
-  def printBottomRow(): Unit = {
-    printLine()
-    printRow()
+
+  def printCorner: Unit = {
+    print("+ - \u231D")
+    println()
+    print("|   |")
+    println()
+    print("+ - \u231F")
   }
-  def printRow(): Unit = {
+
+  def printTopRow: Unit = {
+    printRow
+    printLine
+  }
+  def printBottomRow: Unit = {
+    printLine
+    printRow
+  }
+  def printRow: Unit = {
     print("\t")
     for( col <- columns) {
       print(s"  $col  \t")
