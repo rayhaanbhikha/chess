@@ -2,7 +2,7 @@ package com.rayhaanbhikha.chess.board
 
 object Board {
   val columns: List[Char] = List('a','b','c','d','e','f','g','h')
-  val rows = Range(1, 9)
+  val rows: List[Int] = (1 to 9).toList
 
   def getNewCol(currentColumn: Char, delta: Int): Char = {
     val currentIndexOfCol = columns.indexWhere(currentColumn == _)

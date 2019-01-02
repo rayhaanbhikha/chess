@@ -7,6 +7,10 @@ case class Rook(override val name: String,
                 override var currentPosition: String,
                 override val player: Player) extends ChessPiece {
   override val value: Int = 5
+  override val utfImage: String = color match {
+    case "white" => "  \u2656"
+    case "black" => "  \u265C"
+  }
 
   def possibleMoves: Map[String, List[Translation]] = {
     var mNorth: List[Translation] = List()

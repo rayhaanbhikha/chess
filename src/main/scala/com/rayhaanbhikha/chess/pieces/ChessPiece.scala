@@ -7,6 +7,7 @@ trait ChessPiece {
 
     val name: String
     val pieceType: String = this.getClass.getSimpleName.toLowerCase
+    val utfImage: String
     val value: Int
     var currentPosition: String
     val player: Player

@@ -12,7 +12,7 @@ object PrintBoard {
         if(chessBoardSquares(position).isEmpty)
           print(s"\t  -  ")
         else
-          print(s"\t${chessBoardSquares(position).chessPiece.name} ")
+          print(s"\t${chessBoardSquares(position).chessPiece.utfImage}\t")
       }
       print(s"\t${row+1}")
       println()
