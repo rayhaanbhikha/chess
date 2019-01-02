@@ -19,12 +19,12 @@ object Main extends App {
 
   printBoard()
 
-  availableMoves("WBc1")
-
-  makeMove("WBc1", "b2")
-
-
-  availableMoves("WBc1")
+//  availableMoves("WBc1")
+//
+//  makeMove("WBc1", "b2")
+//
+//
+//  availableMoves("WBc1")
 
 
   def makeMove(chessPieceName: String, newPos: String): Unit = {

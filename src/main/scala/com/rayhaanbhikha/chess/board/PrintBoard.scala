@@ -4,18 +4,25 @@ object PrintBoard {
   private val columns: List[Char] = Board.columns
   // print board. - reads chessboard squares map.
   def apply(chessBoardSquares: Map[String, ChessBoardSquare]): Unit = {
+
     printTopRow()
-    for(row <- columns.indices.reverse) {
-      print(row+1)
-      for(col <- columns) {
-        val position: String = s"$col${row+1}"
+    for {
+      row <- Board.rows
+      col <- columns
+    } yield {
+
+        if(col == 'a' ) print(row)
+
+        val position: String = s"$col${row}"
         if(chessBoardSquares(position).isEmpty)
           print(s"\t  -  ")
         else
           print(s"\t${chessBoardSquares(position).chessPiece.utfImage}\t")
-      }
-      print(s"\t${row+1}")
-      println()
+
+        if(col == 'h') {
+          print(s"\t${row}")
+          println()
+        }
     }
     printBottomRow()
   }
