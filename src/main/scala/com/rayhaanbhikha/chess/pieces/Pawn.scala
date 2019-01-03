@@ -13,8 +13,8 @@ case class Pawn(override val name: String,
   override val value: Int = 1
 
   override val utfImage = color match {
-    case "white" => "  \u2659"
-    case "black" => "  \u265F"
+    case "white" => "\u2659"
+    case "black" => "\u265F"
   }
 
   def possibleMoves: Map[String, List[Translation]] = {

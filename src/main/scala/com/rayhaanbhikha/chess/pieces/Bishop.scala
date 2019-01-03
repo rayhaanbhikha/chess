@@ -9,8 +9,8 @@ case class Bishop(override val name: String,
                   override val player: Player) extends ChessPiece {
   override val value: Int = 3
   override val utfImage: String = color match {
-    case "white" => "  \u2657"
-    case "black" => "  \u265D"
+    case "white" => "\u2657"
+    case "black" => "\u265D"
   }
 
 

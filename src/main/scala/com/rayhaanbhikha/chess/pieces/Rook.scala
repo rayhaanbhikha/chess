@@ -8,29 +8,16 @@ case class Rook(override val name: String,
                 override val player: Player) extends ChessPiece {
   override val value: Int = 5
   override val utfImage: String = color match {
-    case "white" => "  \u2656"
-    case "black" => "  \u265C"
+    case "white" => "\u2656"
+    case "black" => "\u265C"
   }
 
-  def possibleMoves: Map[String, List[Translation]] = {
-    var mNorth: List[Translation] = List()
-    var mEast: List[Translation] = List()
-    var mSouth: List[Translation] = List()
-    var mWest: List[Translation] = List()
-
-      for( row <- Board.rows.reverse) {
-        mNorth = Translation(0, row) :: mNorth
-        mEast = Translation(row, 0) :: mEast
-        mSouth = Translation(0, -row) :: mSouth
-        mWest = Translation(-row, 0) :: mWest
-      }
-    Map(
-      "mNorth" -> mNorth,
-      "mEast" -> mEast,
-      "mSouth" -> mSouth,
-      "mWest" -> mWest
-    )
-  }
+  def possibleMoves: Map[String, List[Translation]] = Map(
+    "mNorth" -> Board.rows.map(row => Translation(0, row)),
+    "mEast" -> Board.rows.map(row => Translation(row, 0)),
+    "mSouth" -> Board.rows.map(row => Translation(0, -row)),
+    "mWest" -> Board.rows.map(row => Translation(-row, 0))
+  )
 
   override def getAvailableMoves(chessBoardSquares: Map[String, ChessBoardSquare]): List[String] = {
     GenericChessPiece.getMoves(chessBoardSquares, possibleMoves, currentPosition, color)

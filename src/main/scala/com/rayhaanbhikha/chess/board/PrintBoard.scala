@@ -5,63 +5,47 @@ object PrintBoard {
   // print board. - reads chessboard squares map.
   def apply(chessBoardSquares: Map[String, ChessBoardSquare]): Unit = {
 
-    printTopRow
+    printLabels()
     for {
-      row <- Board.rows
+      row <- Board.rows.reverse
       col <- columns
     } yield {
 
-        if(col == 'a' ) print(row)
+        if(col == 'a' ) print(s"$row ")
         val position: String = s"$col$row"
         if(chessBoardSquares(position).isEmpty)
-          print(s"\t  -  ")
+          print(s" . ")
         else
-          print(s"\t${chessBoardSquares(position).chessPiece.utfImage}\t")
-
+          print(s" ${chessBoardSquares(position).chessPiece.utfImage} ")
         if(col == 'h') {
-          print(s"\t${row}")
+          print(s" $row")
           println()
         }
     }
-    printBottomRow
+    printLabels("bottom")
+
   }
 
-  def printSquareRow: Unit = {
-    print("+ - +")
-    println()
-    print("|   |")
-    println()
-    print("+ - +")
-  }
-
-  def printCorner: Unit = {
-    print("+ - \u231D")
-    println()
-    print("|   |")
-    println()
-    print("+ - \u231F")
-  }
-
-  def printTopRow: Unit = {
-    printRow
-    printLine
-  }
-  def printBottomRow: Unit = {
-    printLine
-    printRow
-  }
-  def printRow: Unit = {
-    print("\t")
-    for( col <- columns) {
-      print(s"  $col  \t")
+  def printLabels(pos: String = "top") = pos match {
+    case "top" => {
+      printRow
+      printLine
     }
+    case "bottom" => {
+      printLine
+      printRow
+    }
+  }
+
+  def printRow: Unit = {
+    print("  ")
+    columns.foreach(col => print(s" $col "))
     println()
   }
 
   def printLine(): Unit = {
-    for( _ <- columns) {
-      print(s"\t=====")
-    }
+    print("  ")
+    columns.foreach(_ => print(s"==="))
     println()
   }
 }

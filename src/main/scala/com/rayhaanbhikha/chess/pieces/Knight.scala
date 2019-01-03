@@ -8,8 +8,8 @@ case class Knight(override val name: String,
                   override val player: Player) extends ChessPiece {
   override val value: Int = 3
   override val utfImage: String = color match {
-    case "white" => "  \u2658"
-    case "black" => "  \u265E"
+    case "white" => "\u2658"
+    case "black" => "\u265E"
   }
 
   def possibleMoves: List[Translation] = {
