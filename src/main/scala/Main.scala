@@ -19,7 +19,14 @@ object Main extends App {
 
   printBoard()
 
-//  availableMoves("WBc1")
+  availableMoves("WPc2")
+
+  makeMove("WPc2", "c3")
+
+  availableMoves("WPc2")
+
+
+  //  availableMoves("BPf7")
 //
 //  makeMove("WBc1", "b2")
 //

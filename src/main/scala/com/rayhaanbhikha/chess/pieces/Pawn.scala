@@ -17,26 +17,21 @@ case class Pawn(override val name: String,
     case "black" => "\u265F"
   }
 
-  def possibleMoves: Map[String, List[Translation]] = {
-    var mNorthEast: List[Translation] = List()
-    var mNorth: List[Translation] = List()
-    var mNorthWest: List[Translation] = List()
+  def possibleMoves: Map[String, List[Translation]] = color match {
 
-    color match {
       case "white" =>
-        mNorth = if(!active) List(Translation(0,1), Translation(0, 2)) ::: mNorth else Translation(0,1) :: mNorth
-        mNorthEast = Translation(1, 1) :: mNorthEast
-        mNorthWest = Translation(-1, 1) :: mNorthWest
+        Map(
+          "mNorthEast" -> List(Translation(1,1)),
+          "mNorthWest" -> List(Translation(-1, 1)),
+          "mNorth" -> (if (!active) List(Translation(0, 1), Translation(0, 2)) else List(Translation(0, 1)))
+        )
+
       case "black" =>
-        mNorth = if(!active) List(Translation(0,-1), Translation(0, -2)) ::: mNorth else Translation(0, -1) :: mNorth
-        mNorthEast = Translation(-1, -1) :: mNorthEast
-        mNorthWest = Translation(1, -1) :: mNorthWest
-    }
-    Map(
-      "mNorthEast" -> mNorthEast,
-      "mNorth" -> mNorth,
-      "mNorthWest" -> mNorthWest
-    )
+        Map(
+          "mNorthEast" -> List(Translation(-1,-1)),
+          "mNorthWest" -> List(Translation(1, -1)),
+          "mNorth" -> (if (!active) List(Translation(0, -1), Translation(0, -2)) else List(Translation(0, -1)))
+        )
   }
 
   override def getAvailableMoves(chessBoardSquares: Map[String, ChessBoardSquare]): List[String] = {
