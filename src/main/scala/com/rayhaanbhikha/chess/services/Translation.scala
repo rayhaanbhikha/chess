@@ -3,14 +3,6 @@ package com.rayhaanbhikha.chess.services
 import com.rayhaanbhikha.chess.board.Board
 
 case class Translation(var x: Int, var y: Int) {
-  def direction: String = x match {
-    case 1 | -1 => "diagonal"
-    case _ => "vertical"
-  }
-
-  val isDiagonal: () => Boolean = () => direction == "diagonal"
-  val isVertical: () => Boolean = () => direction == "vertical"
-
   override def toString: String = s"[$x, $y]"
 }
 
