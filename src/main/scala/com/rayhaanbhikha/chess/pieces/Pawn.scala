@@ -1,6 +1,6 @@
 package com.rayhaanbhikha.chess.pieces
 
-import com.rayhaanbhikha.chess.board.ChessBoardSquare
+import com.rayhaanbhikha.chess.board.{Board, ChessBoardSquare}
 import com.rayhaanbhikha.chess.services.{AvailableMove, Translation}
 
 import scala.util.control.Breaks.{break, breakable}
@@ -8,22 +8,25 @@ import scala.util.control.Breaks.{break, breakable}
 case class Pawn(override val name: String, override var currentPosition: String) extends ChessPiece {
 
   override val value: Int = 1
-
   override val utfImage = color match {
     case "white" => "\u2659"
     case "black" => "\u265F"
   }
 
+  val enpassant = Enpassant()
+
+  val direction = color match {
+    case "white" => 1
+    case "black" => -1
+  }
+
+
+
   def possibleMoves: Map[String, List[Translation]] = {
-    val increment = color match {
-      case "white" => 1
-      case "black" => -1
-    }
-    
     Map(
-      "mNorthEast" -> List(Translation(increment, increment)),
-      "mNorthWest" -> List(Translation(-increment, increment)),
-      "mNorth" -> (if (!active) List(Translation(0, increment), Translation(0, increment * 2)) else List(Translation(0, increment)))
+      "mNorthEast" -> List(Translation(direction, direction)),
+      "mNorthWest" -> List(Translation(-direction, direction)),
+      "mNorth" -> (if (!active) List(Translation(0, direction), Translation(0, direction * 2)) else List(Translation(0, direction)))
     )
   }
 
@@ -31,13 +34,27 @@ case class Pawn(override val name: String, override var currentPosition: String)
 
     var returnMoves: List[String] = List()
 
+
+    // check if enpassant move is available.
+    println(this.enpassant.isAvailable)
+    if(this.enpassant.isAvailable) {
+      println("chesspiece to kill: ", this.enpassant.chessPieceToAttack.get.name)
+      println("Place to move: ", this.enpassant.move.get)
+      returnMoves = this.enpassant.move.get :: returnMoves
+    }
+
+
     for((direction, moves) <- possibleMoves) {
-      val availableMoves: List[AvailableMove] = Translation.convertTranslations(moves, currentPosition)
-      direction match {
-        case "mNorthEast" | "mNorthWest" =>
-          returnMoves = filterDiagonal(availableMoves, chessBoardSquares) ::: returnMoves
-        case "mNorth" =>
-          returnMoves = filterVertical(availableMoves, chessBoardSquares) ::: returnMoves
+
+      breakable {
+        val availableMoves: List[AvailableMove] = Translation.convertTranslations(moves, currentPosition)
+        if(availableMoves.isEmpty) break
+        direction match {
+          case "mNorthEast" | "mNorthWest" =>
+            returnMoves = filterDiagonal(availableMoves, chessBoardSquares) ::: returnMoves
+          case "mNorth" =>
+            returnMoves = filterVertical(availableMoves, chessBoardSquares) ::: returnMoves
+        }
       }
     }
 
@@ -75,5 +92,66 @@ case class Pawn(override val name: String, override var currentPosition: String)
       List(availableMove.position)
     else
       List()
+  }
+
+  override def movePiece(newPosition: String, chessBoardSquares: Map[String, ChessBoardSquare]): Unit = {
+
+    // check enpassant move here.
+    if(movedUpTwo(this.currentPosition, newPosition)) {
+      // find adjacent chess pieces.
+      adjacentChessPiece(newPosition, "right", chessBoardSquares)
+      adjacentChessPiece(newPosition, "left", chessBoardSquares)
+    }
+
+
+
+
+    // 1. move selected piece to new position.
+    chessBoardSquares(newPosition).chessPiece = this
+
+    // 2. remove selected piece from it's previous position. (if it exists)
+    chessBoardSquares(this.currentPosition).removeChessPiece()
+
+    // 3. update pawns current position
+    this.currentPosition = newPosition
+
+    // 4. check if peice has enpassant. if it does remove it.
+    this.enpassant.remove
+  }
+
+  def adjacentChessPiece(position: String, adjacentDirection: String, chessBoardSquares: Map[String, ChessBoardSquare]): Unit = {
+    val positionOfInterest = adjacentDirection match {
+      case "right" => Board.diagonalSquare(position, direction)
+      case "left" => Board.diagonalSquare(position, -direction)
+    }
+
+
+    val chessBoardSquare = chessBoardSquares(positionOfInterest)
+
+    if(!chessBoardSquare.isEmpty &&
+        chessBoardSquare.chessPiece.pieceType == "pawn"
+      ) {
+
+      val pawn = chessBoardSquare.chessPiece.asInstanceOf[Pawn]
+
+      pawn.enpassant.isAvailable = true
+      pawn.enpassant.move = Some(currentPosition)
+      pawn.enpassant.chessPieceToAttack = Some(this)
+
+
+      println(chessBoardSquare.chessPiece.name)
+    }
+
+
+  }
+
+
+
+
+  def movedUpTwo(currentPos: String, newPos: String): Boolean = {
+    val currentRow = currentPos.charAt(1)
+    val newRow = newPos.charAt(1)
+
+    Math.abs(currentRow - newRow) == 2
   }
 }

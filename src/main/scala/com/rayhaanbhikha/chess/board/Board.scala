@@ -6,10 +6,11 @@ object Board {
 
   def getNewCol(currentColumn: Char, delta: Int): Char = {
     val currentIndexOfCol = columns.indexWhere(currentColumn == _)
-    if( currentIndexOfCol == -1)
+    val newCol = columns(currentIndexOfCol + delta)
+    if(currentIndexOfCol == - 1 || newCol == -1)
       throw new IndexOutOfBoundsException(s"$currentColumn does not exist")
-
-    columns(currentIndexOfCol + delta)
+    else
+      newCol
   }
 
   def getNewRow(currentRow: Int, delta: Int): Int = {
@@ -17,6 +18,13 @@ object Board {
     if(newRow > 8 || newRow < 1)
       throw new IndexOutOfBoundsException(s"$newRow in correct ")
     newRow
+  }
+
+  def diagonalSquare(position: String, delta: Int): String = {
+    val col = position.charAt(0)
+    val row = position.charAt(1)
+    val newCol = getNewCol(col, delta)
+    s"$newCol$row"
   }
 }
 

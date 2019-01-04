@@ -24,17 +24,6 @@ trait ChessPiece {
         true
     }
 
-    def movedUpTwo: Boolean = {
-        val initialRow = initialPosition.charAt(1).toInt - 48
-        val newRow = currentPosition.charAt(1).toInt - 48
-
-        if(Math.abs(initialRow - newRow) == 2)
-            true
-        else
-            false
-    }
-
-
     def getAvailableMoves(chessBoardSquares: Map[String, ChessBoardSquare]): List[String]
 
     def movePiece(newPosition: String, chessBoardSquares: Map[String, ChessBoardSquare]): Unit = {

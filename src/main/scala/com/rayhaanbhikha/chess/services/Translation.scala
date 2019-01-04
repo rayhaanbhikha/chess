@@ -22,7 +22,7 @@ object Translation {
 
       Some(availableMove)
     } catch {
-      case _: IndexOutOfBoundsException =>
+      case _: Throwable =>
         None
     }
   }

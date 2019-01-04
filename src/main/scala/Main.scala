@@ -9,23 +9,33 @@ object Main extends App {
 
   // check color here for each player first. throw exception.
 
-  // generate chess pieces
-  val s = "s"
-
   val chessBoard = new ChessBoard()
   val printBoard = () => PrintBoard(chessBoard.chessBoardSquares)
 
   printBoard()
 
-  availableMoves("WPc2")
 
-//  makeMove("WPc2", "c3")
-
-//  availableMoves("WPc2")
-
-
-  //  availableMoves("BPf7")
+//  makeMove("WPb2", "b4")
 //
+//  availableMoves("BPc7")
+//
+//
+//  makeMove("BPc7", "b2")
+//
+//  availableMoves("BPc7")
+//
+//  makeMove("WPf2", "f4")
+//
+//  availableMoves("BPe7")
+//
+//  makeMove("BPg7", "g5")
+//
+//  availableMoves("WPa2")
+//
+  makeMove("BPg7", "g5")
+
+  availableMoves("WPh2")
+
 //  makeMove("WBc1", "b2")
 //
 //
