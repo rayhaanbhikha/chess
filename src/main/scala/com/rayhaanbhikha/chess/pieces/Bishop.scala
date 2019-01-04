@@ -1,12 +1,9 @@
 package com.rayhaanbhikha.chess.pieces
-import com.rayhaanbhikha.chess.Game.Player
 import com.rayhaanbhikha.chess.board.{Board, ChessBoardSquare}
 import com.rayhaanbhikha.chess.services.{GenericChessPiece, Translation}
 
 
-case class Bishop(override val name: String,
-                  override var currentPosition: String,
-                  override val player: Player) extends ChessPiece {
+case class Bishop(override val name: String, override var currentPosition: String) extends ChessPiece {
   override val value: Int = 3
   override val utfImage: String = color match {
     case "white" => "\u2657"

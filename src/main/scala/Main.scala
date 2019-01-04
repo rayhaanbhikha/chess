@@ -1,4 +1,4 @@
-import com.rayhaanbhikha.chess.Game.{ChessPieces, Player}
+import com.rayhaanbhikha.chess.Game.Player
 import com.rayhaanbhikha.chess.board.{ChessBoard, PrintBoard}
 
 object Main extends App {
@@ -10,11 +10,9 @@ object Main extends App {
   // check color here for each player first. throw exception.
 
   // generate chess pieces
-  val whiteChessPieces = ChessPieces(player1)
-  val blackChessPieces = ChessPieces(player2)
   val s = "s"
 
-  val chessBoard = new ChessBoard(whiteChessPieces ::: blackChessPieces)
+  val chessBoard = new ChessBoard()
   val printBoard = () => PrintBoard(chessBoard.chessBoardSquares)
 
   printBoard()

@@ -1,8 +1,12 @@
 package com.rayhaanbhikha.chess.board
 
+import com.rayhaanbhikha.chess.Game.ChessPieces
 import com.rayhaanbhikha.chess.pieces.ChessPiece
 
-class ChessBoard(chessPieces: List[ChessPiece]) {
+class ChessBoard {
+
+    val chessPieces: List[ChessPiece] =  ChessPieces("white") ::: ChessPieces("black")
+
     private val columns: List[Char] = Board.columns
     var chessBoardSquares: Map[String, ChessBoardSquare] = Map()
     initialiseChessBoardSquares()

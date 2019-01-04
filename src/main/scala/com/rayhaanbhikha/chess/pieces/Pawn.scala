@@ -1,14 +1,11 @@
 package com.rayhaanbhikha.chess.pieces
 
-import com.rayhaanbhikha.chess.Game.Player
 import com.rayhaanbhikha.chess.board.ChessBoardSquare
 import com.rayhaanbhikha.chess.services.{AvailableMove, Translation}
 
 import scala.util.control.Breaks.{break, breakable}
 
-case class Pawn(override val name: String,
-                override var currentPosition: String,
-                override val player: Player) extends ChessPiece {
+case class Pawn(override val name: String, override var currentPosition: String) extends ChessPiece {
 
   override val value: Int = 1
 
