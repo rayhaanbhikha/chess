@@ -17,21 +17,17 @@ case class Pawn(override val name: String,
     case "black" => "\u265F"
   }
 
-  def possibleMoves: Map[String, List[Translation]] = color match {
-
-      case "white" =>
-        Map(
-          "mNorthEast" -> List(Translation(1,1)),
-          "mNorthWest" -> List(Translation(-1, 1)),
-          "mNorth" -> (if (!active) List(Translation(0, 1), Translation(0, 2)) else List(Translation(0, 1)))
-        )
-
-      case "black" =>
-        Map(
-          "mNorthEast" -> List(Translation(-1,-1)),
-          "mNorthWest" -> List(Translation(1, -1)),
-          "mNorth" -> (if (!active) List(Translation(0, -1), Translation(0, -2)) else List(Translation(0, -1)))
-        )
+  def possibleMoves: Map[String, List[Translation]] = {
+    val increment = color match {
+      case "white" => 1
+      case "black" => -1
+    }
+    
+    Map(
+      "mNorthEast" -> List(Translation(increment, increment)),
+      "mNorthWest" -> List(Translation(-increment, increment)),
+      "mNorth" -> (if (!active) List(Translation(0, increment), Translation(0, increment * 2)) else List(Translation(0, increment)))
+    )
   }
 
   override def getAvailableMoves(chessBoardSquares: Map[String, ChessBoardSquare]): List[String] = {

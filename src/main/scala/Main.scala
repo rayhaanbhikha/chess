@@ -21,9 +21,9 @@ object Main extends App {
 
   availableMoves("WPc2")
 
-  makeMove("WPc2", "c3")
+//  makeMove("WPc2", "c3")
 
-  availableMoves("WPc2")
+//  availableMoves("WPc2")
 
 
   //  availableMoves("BPf7")
