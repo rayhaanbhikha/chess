@@ -94,18 +94,14 @@ case class Pawn(override val name: String, override var currentPosition: String)
     // check enpassant move here.
     if(movedUpTwo(this.currentPosition, newPosition)) {
       // find adjacent chess pieces.
-      adjacentChessPiece(newPosition, chessBoardSquares)
+      adjacentChessPieces(newPosition, chessBoardSquares)
     }
-
-
-
 
     // 1. move selected piece to new position.
     chessBoardSquares(newPosition).chessPiece = this
 
     // 2. remove selected piece from it's previous position. (if it exists)
     chessBoardSquares(this.currentPosition).removeChessPiece()
-
 
     // 3. update pawns current position
     this.currentPosition = newPosition
@@ -127,7 +123,7 @@ case class Pawn(override val name: String, override var currentPosition: String)
     this.enpassant = None
   }
 
-  def adjacentChessPiece(newPosition: String, chessBoardSquares: Map[String, ChessBoardSquare]): Unit = {
+  def adjacentChessPieces(newPosition: String, chessBoardSquares: Map[String, ChessBoardSquare]): Unit = {
     val adjacentSquares = Board.getAdjacentSquares(newPosition, direction)
 
     adjacentSquares.foreach(position => {
@@ -148,9 +144,6 @@ case class Pawn(override val name: String, override var currentPosition: String)
       }
     })
   }
-
-
-
 
   def movedUpTwo(currentPos: String, newPos: String): Boolean = {
     val currentRow = currentPos.charAt(1)
