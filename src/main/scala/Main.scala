@@ -32,16 +32,22 @@ object Main extends App {
 //
 //  availableMoves("WPa2")
 //
-  makeMove("BPg7", "g5")
+//  makeMove("BPg7", "g5")
+//
+//  availableMoves("WPh2")
+//
+//  availableMoves("WPf2")
 
-  availableMoves("WPh2")
-
-  makeMove("WPh2", "g6")
+  //  makeMove("WPh2", "g6")
 
 //  makeMove("WBc1", "b2")
 //
 //
-//  availableMoves("WBc1")
+  availableMoves("WPa2")
+
+  availableMoves("WKb1")
+
+
 
 
   def makeMove(chessPieceName: String, newPos: String): Unit = {

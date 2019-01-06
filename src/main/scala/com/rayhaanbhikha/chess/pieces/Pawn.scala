@@ -35,8 +35,6 @@ case class Pawn(override val name: String, override var currentPosition: String)
 
     // check if enpassant move is available.
     if(this.enpassant.isDefined) {
-      println("chesspiece to kill: ", this.enpassant.get.chessPieceToAttack)
-      println("Place to move: ", this.enpassant.get.move)
       returnMoves = this.enpassant.get.move :: returnMoves
     }
 
@@ -96,8 +94,7 @@ case class Pawn(override val name: String, override var currentPosition: String)
     // check enpassant move here.
     if(movedUpTwo(this.currentPosition, newPosition)) {
       // find adjacent chess pieces.
-      adjacentChessPiece(newPosition, "right", chessBoardSquares)
-      adjacentChessPiece(newPosition, "left", chessBoardSquares)
+      adjacentChessPiece(newPosition, chessBoardSquares)
     }
 
 
@@ -116,29 +113,19 @@ case class Pawn(override val name: String, override var currentPosition: String)
     this.enpassant = None
   }
 
-  def adjacentChessPiece(position: String, adjacentDirection: String, chessBoardSquares: Map[String, ChessBoardSquare]): Unit = {
-    val positionOfInterest = adjacentDirection match {
-      case "right" => Board.diagonalSquare(position, direction)
-      case "left" => Board.diagonalSquare(position, -direction)
-    }
+  def adjacentChessPiece(position: String, chessBoardSquares: Map[String, ChessBoardSquare]): Unit = {
+    val adjacentSquares = Board.getAdjacentSquares(position, direction)
 
+    adjacentSquares.foreach(position => {
+      val chessBoardSquare = chessBoardSquares(position)
 
-    val chessBoardSquare = chessBoardSquares(positionOfInterest)
+      if(chessBoardSquare.isDefined && chessBoardSquare.chessPiece.pieceType == "pawn") {
+        val pawn = chessBoardSquare.chessPiece.asInstanceOf[Pawn]
+        val enpassant = Enpassant(this, pawn.color, pawn.currentPosition)
 
-    if(!chessBoardSquare.isEmpty &&
-        chessBoardSquare.chessPiece.pieceType == "pawn"
-      ) {
-
-      val pawn = chessBoardSquare.chessPiece.asInstanceOf[Pawn]
-      val enpassant = Enpassant(this, pawn.color, pawn.currentPosition)
-
-      pawn.enpassant = Some(enpassant)
-
-
-      println(chessBoardSquare.chessPiece.name)
-    }
-
-
+        pawn.enpassant = Some(enpassant)
+      }
+    })
   }
 
 
