@@ -1,15 +1,20 @@
 package com.rayhaanbhikha.chess.pieces
 
+import com.rayhaanbhikha.chess.board.Board
+import com.rayhaanbhikha.chess.services.Translation
+
 case class Enpassant(chessPieceToAttack: ChessPiece,
-                     color: String,
-                     currentPosition: String) {
+                     pawnColor: String,
+                     pawnPosition: String,
+                     offendingChessPieceNewPosition: String) {
 
   def move: String = {
-//    color match {
-//      case "white" => Board.deltaRow(currentPosition, 1)
-//      case "black" => Board.deltaRow(currentPosition, -1)
-//    }
-    "g6"
+    val m = pawnColor match {
+      case "white" => Board.getNewPosition(offendingChessPieceNewPosition, new Translation(0, 1))
+      case "black" => Board.getNewPosition(offendingChessPieceNewPosition, new Translation(0, -1))
+    }
+
+    m.get // this will never be None as enpassant move is always inbetween.
   }
 
 }

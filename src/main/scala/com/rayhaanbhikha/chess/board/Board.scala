@@ -1,5 +1,7 @@
 package com.rayhaanbhikha.chess.board
 
+import com.rayhaanbhikha.chess.services.Translation
+
 object Board {
   val columns: List[Char] = List('a','b','c','d','e','f','g','h')
   val rows: List[Int] = (1 to 8).toList
@@ -28,10 +30,24 @@ object Board {
     }
   }
 
+  def getNewPosition(position: String, translation: Translation): Option[String] = {
+    val col = position.charAt(0)
+    val row = position.charAt(1).toInt - 48
+
+    val newCol = getNewCol(col, translation.x)
+    val newRow = getNewRow(row, translation.y)
+
+    if(newCol.isDefined && newRow.isDefined) {
+      val newPosition = s"${newCol.get}${newRow.get}"
+      Some(newPosition)
+    }
+    else
+      None
+  }
+
   def diagonalSquare(position: String, delta: Int): Option[String] = {
     val col = position.charAt(0)
     val row = position.charAt(1)
-    println(col, "-", row)
 
     val newCol = getNewCol(col, delta)
 

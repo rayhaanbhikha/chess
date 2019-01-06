@@ -106,24 +106,45 @@ case class Pawn(override val name: String, override var currentPosition: String)
     // 2. remove selected piece from it's previous position. (if it exists)
     chessBoardSquares(this.currentPosition).removeChessPiece()
 
+
     // 3. update pawns current position
     this.currentPosition = newPosition
+
+    /* intermediate step.
+    *   check if enpassant exists on current pawn.
+    *
+    *   if true check if move played matches move in enpassant instance.
+    *
+    *   if true, the move is an enpassant move and therefore offending chess piece needs to
+    *   be removed from it chess board square as well.
+    * */
+    if(this.enpassant.isDefined && this.enpassant.get.move == currentPosition) {
+      val offendingChessPiecePosition = this.enpassant.get.chessPieceToAttack.currentPosition
+      chessBoardSquares(offendingChessPiecePosition).removeChessPiece()
+    }
 
     // 4. check if peice has enpassant. if it does remove it.
     this.enpassant = None
   }
 
-  def adjacentChessPiece(position: String, chessBoardSquares: Map[String, ChessBoardSquare]): Unit = {
-    val adjacentSquares = Board.getAdjacentSquares(position, direction)
+  def adjacentChessPiece(newPosition: String, chessBoardSquares: Map[String, ChessBoardSquare]): Unit = {
+    val adjacentSquares = Board.getAdjacentSquares(newPosition, direction)
 
     adjacentSquares.foreach(position => {
       val chessBoardSquare = chessBoardSquares(position)
 
       if(chessBoardSquare.isDefined && chessBoardSquare.chessPiece.pieceType == "pawn") {
         val pawn = chessBoardSquare.chessPiece.asInstanceOf[Pawn]
-        val enpassant = Enpassant(this, pawn.color, pawn.currentPosition)
+        val enpassant = Enpassant(
+          chessPieceToAttack = this,
+          pawnColor = pawn.color,
+          pawnPosition = pawn.currentPosition,
+          offendingChessPieceNewPosition = newPosition
+        )
 
         pawn.enpassant = Some(enpassant)
+
+        pawn.enpassant.get.move
       }
     })
   }

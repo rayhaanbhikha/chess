@@ -9,15 +9,10 @@ case class Translation(var x: Int, var y: Int) {
 object Translation {
 
   def convertTranslation(translation: Translation, currentPos: String): Option[AvailableMove] = {
-      val col = currentPos.charAt(0)
-      val row = currentPos.charAt(1).toInt - 48
+      val newPosition = Board.getNewPosition(currentPos, translation)
 
-      val newCol = Board.getNewCol(col, translation.x)
-      val newRow = Board.getNewRow(row, translation.y)
-
-      if(newCol.isDefined && newRow.isDefined) {
-        val newPosition = s"${newCol.get}${newRow.get}"
-        val availableMove = new AvailableMove(translation, newPosition)
+      if(newPosition.isDefined) {
+        val availableMove = new AvailableMove(translation, newPosition.get)
         Some(availableMove)
       }
       else

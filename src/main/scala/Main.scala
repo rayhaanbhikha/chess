@@ -32,20 +32,33 @@ object Main extends App {
 //
 //  availableMoves("WPa2")
 //
-//  makeMove("BPg7", "g5")
-//
-//  availableMoves("WPh2")
-//
-//  availableMoves("WPf2")
+  makeMove("BPg7", "g5")
+
+  availableMoves("WPh2")
+
+  availableMoves("WPf2")
+
+  makeMove("WPh2", "g6")
+
+  println("========")
+
+  makeMove("WPd2", "d4")
+
+  availableMoves("BPc7")
+  availableMoves("BPe7")
+
+  makeMove("BPe7", "d3")
 
   //  makeMove("WPh2", "g6")
 
 //  makeMove("WBc1", "b2")
 //
 //
-  availableMoves("WPa2")
-
-  availableMoves("WKb1")
+//  availableMoves("WPa2")
+//
+//  availableMoves("WKb1")
+//
+//  availableMoves("WRh1")
 
 
 
