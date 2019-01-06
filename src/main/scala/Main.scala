@@ -36,6 +36,8 @@ object Main extends App {
 
   availableMoves("WPh2")
 
+  makeMove("WPh2", "g6")
+
 //  makeMove("WBc1", "b2")
 //
 //

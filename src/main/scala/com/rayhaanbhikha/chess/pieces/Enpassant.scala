@@ -1,14 +1,15 @@
 package com.rayhaanbhikha.chess.pieces
 
-case class Enpassant(var isAvailable: Boolean = false) {
+case class Enpassant(chessPieceToAttack: ChessPiece,
+                     color: String,
+                     currentPosition: String) {
 
-  var move: Option[String] = None
-
-  var chessPieceToAttack: Option[ChessPiece] = None
-
-  def remove: Unit = {
-    isAvailable = false
-    move = None
-    chessPieceToAttack = None
+  def move: String = {
+//    color match {
+//      case "white" => Board.deltaRow(currentPosition, 1)
+//      case "black" => Board.deltaRow(currentPosition, -1)
+//    }
+    "g6"
   }
+
 }

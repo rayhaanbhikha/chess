@@ -13,14 +13,12 @@ case class Pawn(override val name: String, override var currentPosition: String)
     case "black" => "\u265F"
   }
 
-  val enpassant = Enpassant()
+  var enpassant: Option[Enpassant] = None
 
   val direction = color match {
     case "white" => 1
     case "black" => -1
   }
-
-
 
   def possibleMoves: Map[String, List[Translation]] = {
     Map(
@@ -36,11 +34,10 @@ case class Pawn(override val name: String, override var currentPosition: String)
 
 
     // check if enpassant move is available.
-    println(this.enpassant.isAvailable)
-    if(this.enpassant.isAvailable) {
-      println("chesspiece to kill: ", this.enpassant.chessPieceToAttack.get.name)
-      println("Place to move: ", this.enpassant.move.get)
-      returnMoves = this.enpassant.move.get :: returnMoves
+    if(this.enpassant.isDefined) {
+      println("chesspiece to kill: ", this.enpassant.get.chessPieceToAttack)
+      println("Place to move: ", this.enpassant.get.move)
+      returnMoves = this.enpassant.get.move :: returnMoves
     }
 
 
@@ -116,7 +113,7 @@ case class Pawn(override val name: String, override var currentPosition: String)
     this.currentPosition = newPosition
 
     // 4. check if peice has enpassant. if it does remove it.
-    this.enpassant.remove
+    this.enpassant = None
   }
 
   def adjacentChessPiece(position: String, adjacentDirection: String, chessBoardSquares: Map[String, ChessBoardSquare]): Unit = {
@@ -133,10 +130,9 @@ case class Pawn(override val name: String, override var currentPosition: String)
       ) {
 
       val pawn = chessBoardSquare.chessPiece.asInstanceOf[Pawn]
+      val enpassant = Enpassant(this, pawn.color, pawn.currentPosition)
 
-      pawn.enpassant.isAvailable = true
-      pawn.enpassant.move = Some(currentPosition)
-      pawn.enpassant.chessPieceToAttack = Some(this)
+      pawn.enpassant = Some(enpassant)
 
 
       println(chessBoardSquare.chessPiece.name)

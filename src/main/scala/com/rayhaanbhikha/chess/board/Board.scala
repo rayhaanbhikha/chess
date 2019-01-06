@@ -26,5 +26,12 @@ object Board {
     val newCol = getNewCol(col, delta)
     s"$newCol$row"
   }
+
+  def deltaRow(currentPosition: String, delta: Int): String = {
+    val row = currentPosition.charAt(1)
+    val col = currentPosition.charAt(0)
+
+    s"$col${getNewRow(row, delta)}"
+  }
 }
 
