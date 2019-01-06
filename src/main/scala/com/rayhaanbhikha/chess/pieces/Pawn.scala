@@ -8,19 +8,19 @@ import scala.util.control.Breaks.{break, breakable}
 case class Pawn(override val name: String, override var currentPosition: String) extends ChessPiece {
 
   override val value: Int = 1
-  override val utfImage = color match {
+  override val utfImage: String = color match {
     case "white" => "\u2659"
     case "black" => "\u265F"
   }
 
-  var enpassant: Option[Enpassant] = None
+  private var enpassant: Option[Enpassant] = None
 
-  val direction = color match {
+  private val direction: Int = color match {
     case "white" => 1
     case "black" => -1
   }
 
-  def possibleMoves: Map[String, List[Translation]] = {
+  private def possibleMoves: Map[String, List[Translation]] = {
     Map(
       "mNorthEast" -> List(Translation(direction, direction)),
       "mNorthWest" -> List(Translation(-direction, direction)),
@@ -56,8 +56,7 @@ case class Pawn(override val name: String, override var currentPosition: String)
     returnMoves
   }
 
-
-  def filterVertical(availableMoves: List[AvailableMove], chessBoardSquares: Map[String, ChessBoardSquare]): List[String] = {
+  private def filterVertical(availableMoves: List[AvailableMove], chessBoardSquares: Map[String, ChessBoardSquare]): List[String] = {
     var filteredMoves: List[String] = List()
 
     breakable {
@@ -74,7 +73,7 @@ case class Pawn(override val name: String, override var currentPosition: String)
     filteredMoves
   }
 
-  def filterDiagonal(availableMoves: List[AvailableMove], chessBoardSquares: Map[String, ChessBoardSquare]): List[String] = {
+  private def filterDiagonal(availableMoves: List[AvailableMove], chessBoardSquares: Map[String, ChessBoardSquare]): List[String] = {
     // pawn diagonal moves are only ever 1.
     val availableMove = availableMoves.head
     val position = availableMove.position
